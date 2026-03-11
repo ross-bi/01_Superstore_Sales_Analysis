@@ -1,0 +1,14 @@
+python3.13
+
+pandas
+numpy
+sqlalchemy
+mysql-connector-python
+XlsxWriter
+
+Power User for dbt
+
+
+dbt-core
+dbt-postgres
+dbt-mysql

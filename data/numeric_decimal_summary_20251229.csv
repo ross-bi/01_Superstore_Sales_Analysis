@@ -1,0 +1,6 @@
+column,max_int_digits,max_decimal_digits,min_int_digits,min_decimal_digits
+sales,5,0,1,0
+profit,4,5,1,0
+discount,1,3,1,0
+quantity,2,0,1,0
+shipping_cost,3,2,1,0
