@@ -206,4 +206,4 @@ erDiagram
 
 ## 授權條款
 
-本專案採用 MIT License 授權。
+本專案採用 [MIT LICENSE](./LICENSE)  授權。
