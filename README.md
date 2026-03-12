@@ -295,7 +295,7 @@ ORDER BY profit_margin_pct DESC;
 01_Superstore_Sales_Analysis/
 │
 ├── data/
-│   ├── superstore.csv                              # Original raw dataset
+│   ├── superstore.csv                               # Original raw dataset
 │   ├── SuperStoreOrders.csv.zip                     # Compressed backup
 │   ├── superstore_clean_20251229.csv                # Cleaned dataset (MySQL import source)
 │   ├── raw_superstore_report_20251229.xlsx          # Raw data audit report
