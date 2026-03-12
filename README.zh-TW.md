@@ -1,4 +1,6 @@
 [![English](https://img.shields.io/badge/English-Click_Here-blue?style=for-the-badge)](README.md)
+&nbsp;&nbsp;
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-blue?style=for-the-badge)](README.zh-CN.md)
 
 # 超市銷售與利潤分析
 
