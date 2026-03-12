@@ -237,6 +237,7 @@ ORDER BY profit_margin_pct DESC;
 
 ### Page 2: Product Performance
 <img src="photo/bi02.png" alt="Product Performance" width="100%">
+
 - **Category Profitability Table**: Technology (14% margin), Office Supplies (14%), Furniture (7%)
 - **Sub-Category Deep Dive**: Sales & profit bar charts with year-over-year comparison (2011–2014)
 - **ABC Treemap**: Visual classification of sub-categories by sales volume
@@ -244,6 +245,7 @@ ORDER BY profit_margin_pct DESC;
 
 ### Page 3: Promotion Impact
 <img src="photo/bi03.png" alt="Promotion Impact" width="100%">
+
 - **Discount vs Margin Scatter Plot**: AVG Discount % vs AVG Margin % by sub-category (with quantity as bubble size)
 - **Discount Impact Charts**: Sales and profit distribution by discount level across years
 - **ROI by Sub-Category**: Bar chart ranking — Paper (highest ROI) to Tables (negative ROI)
