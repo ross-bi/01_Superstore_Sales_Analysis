@@ -72,29 +72,71 @@ Instead of a single flat table, this project implements a **snowflake schema** w
 
 ### Schema Diagram
 
-```
-                        dim_date
-                       (date_id PK)
-                      ┌─────┴─────┐
-                order_date_id   ship_date_id
-                      │             │
-dim_region ──► dim_market ──► dim_country ──► dim_state
-                                                  │
-dim_category ──► dim_sub_category ──► dim_product  │
-                                          │        │
-                                     ┌────┴────────┘
-                                     │
-                                fact_sales
-                              (sales_id PK)
-                              order_id
-                              sales, quantity
-                              discount, profit
-                              shipping_cost
-                              order_priority
-                                     │
-                                dim_customer
-                              (customer_id PK)
-```
+```mermaid 
+erDiagram
+    %% 定義 Fact Table
+    fact_sales {
+        string sales_id PK
+        string order_id
+        float sales
+        int quantity
+        float discount
+        float profit
+        float shipping_cost
+        string order_priority
+    }
+
+    %% 定義 Dimension Tables
+    dim_date {
+        date date_id PK
+    }
+
+    dim_customer {
+        string customer_id PK
+    }
+
+    dim_product {
+        string product_id PK
+    }
+
+    dim_sub_category {
+        string sub_category_id PK
+    }
+
+    dim_category {
+        string category_id PK
+    }
+
+    dim_state {
+        string state_id PK
+    }
+
+    dim_country {
+        string country_id PK
+    }
+
+    dim_market {
+        string market_id PK
+    }
+
+    dim_region {
+        string region_id PK
+    }
+
+    %% 定義關聯性 (Snowflake Schema)
+    dim_date ||--o{ fact_sales : "order_date_id"
+    dim_date ||--o{ fact_sales : "ship_date_id"
+    dim_state ||--o{ fact_sales : "ships to"
+    dim_product ||--o{ fact_sales : "contains"
+    dim_customer ||--o{ fact_sales : "purchases"
+
+    dim_region ||--o{ dim_market : "has"
+    dim_market ||--o{ dim_country : "has"
+    dim_country ||--o{ dim_state : "has"
+
+    dim_category ||--o{ dim_sub_category : "has"
+    dim_sub_category ||--o{ dim_product : "has"
+ ```
 
 ### Dimension Tables
 
@@ -184,7 +226,7 @@ ORDER BY profit_margin_pct DESC;
 ## 5. Power BI Dashboard (3 Pages)
 
 ### Page 1: Executive Summary
-<img src="powerBI.jpg" alt="Executive Summary Dashboard" width="100%">
+<img src="photo/bi01.png" alt="Executive Summary Dashboard" width="100%">
 
 - **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), AVG Margin (5.00%)
 - **Sales Trend**: Monthly sales comparison (2013 vs 2014) showing seasonal patterns
@@ -194,12 +236,14 @@ ORDER BY profit_margin_pct DESC;
 - **Slicers**: Segment (Consumer/Corporate/Home Office), Category
 
 ### Page 2: Product Performance
+<img src="photo/bi02.png" alt="Product Performance" width="100%">
 - **Category Profitability Table**: Technology (14% margin), Office Supplies (14%), Furniture (7%)
 - **Sub-Category Deep Dive**: Sales & profit bar charts with year-over-year comparison (2011–2014)
 - **ABC Treemap**: Visual classification of sub-categories by sales volume
 - **Segment & Category Breakdown**: Pie charts for sales distribution
 
 ### Page 3: Promotion Impact
+<img src="photo/bi03.png" alt="Promotion Impact" width="100%">
 - **Discount vs Margin Scatter Plot**: AVG Discount % vs AVG Margin % by sub-category (with quantity as bubble size)
 - **Discount Impact Charts**: Sales and profit distribution by discount level across years
 - **ROI by Sub-Category**: Bar chart ranking — Paper (highest ROI) to Tables (negative ROI)
