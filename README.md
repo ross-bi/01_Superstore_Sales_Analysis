@@ -326,7 +326,6 @@ ORDER BY profit_margin_pct DESC;
 │   ├── test_powerbi.sql                             # KPI verification queries
 │   ├── drop_table.sql                               # Schema teardown (dependency-safe)
 │   ├── README.txt                                   # SQL design notes & business insights
-│   ├── README_PROGRESS.txt                          # Development progress log
 │   └── analyst/
 │       ├── market_country_x_category.sql            # Geographic × Category breakdown
 │       ├── raw_produt_id_x_profit.sql               # Product-level profitability
@@ -336,8 +335,6 @@ ORDER BY profit_margin_pct DESC;
 ├── powerBI/
 │   ├── superstore.pbix                              # Power BI dashboard file
 │   └── superstore.pdf                               # Dashboard export (3 pages)
-│
-├── Ref/                                             # Reference dashboards & notebooks
 │
 └── README.md
 ```
@@ -356,3 +353,14 @@ ORDER BY profit_margin_pct DESC;
 2. **Run data cleaning**: `python scripts/02_clean_data_cnt.py`
 3. **Set up MySQL**: Execute SQL scripts in order (`01` → `08`)
 4. **Open Power BI**: Connect `superstore.pbix` to your MySQL instance via `vw_sales_full`
+
+# Contact
+
+[![Notion](https://img.shields.io/badge/Notion-Portfolio-blue?style=for-the-badge&logo=notion&logoColor=white)](https://www.notion.so/Chung-Man-Ross-Tang-2cc75a3c84e1807d8e6ec0bad9e0fa84?source=copy_link)  
+
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/chung-man-tang-2a7616177)
+&nbsp;
+
+# License
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
