@@ -1,80 +1,76 @@
+[![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-blue?style=for-the-badge)](README.zh-TW.md)
+
 # Superstore Sales & Profit Analysis
 
-**MySQL · Python · Power BI · Data Warehouse Project**
+**MySQL · Python · Power BI · Data Warehouse**
 
 ---
 
 ## Project Overview
 
-This project analyzes the [Kaggle Superstore Sales Dataset](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset) to uncover insights about product performance, profitability, and the impact of discount strategies across global markets (2011–2014).
+This project analyzes the [Kaggle Superstore Sales Dataset](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset) to uncover product performance, profitability drivers, and the impact of discount strategies across 7 global markets (2011–2014).
 
-The goal is to support **procurement, inventory planning, and promotion optimization** through data-driven decision-making.
+The goal is to support **procurement, inventory planning, and promotion optimization** through structured data modeling and visual analytics.
 
 ### What This Project Covers
 
-- Data cleaning & validation using **Python (pandas)**
-- Snowflake-style dimensional modeling in **MySQL** (staging → dimension/fact tables → views)
-- Data integrity verification with bidirectional reconciliation
-- Interactive dashboards built in **Power BI** (3 pages)
-- Business insights & actionable recommendations
+- Data cleaning and validation using **Python (pandas)**
+- Snowflake-style dimensional modeling in **MySQL** (staging → dimensions/facts → views)
+- Bidirectional data reconciliation for pipeline integrity verification
+- 3-page interactive dashboard in **Power BI**
+- Business insights and actionable recommendations
 
 ---
 
 ## Dataset
 
 | Item | Detail |
-|------|--------|
+|---|---|
 | Source | [Kaggle — Superstore Sales Dataset](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset) by Laiba Anwer |
 | Rows | ~51,000+ |
 | Time Range | 2011–2014 |
 | Coverage | 7 global markets (APAC, EU, US, LATAM, EMEA, Africa, Canada) |
-| Key Fields | Order Date, Ship Date, Customer, Segment, Region, Product Category/Sub-Category, Sales, Quantity, Discount, Profit, Shipping Cost, Order Priority |
+| Key Fields | Order Date, Ship Date, Customer, Segment, Region, Category, Sub-Category, Sales, Quantity, Discount, Profit, Shipping Cost, Order Priority |
 
 ---
 
 ## Tools & Technologies
 
 | Tool | Purpose |
-|------|---------|
-| Python (pandas) | Data cleaning, validation & audit reporting |
-| MySQL | Dimensional modeling, data loading & analytical SQL |
-| Power BI | Interactive dashboard & KPI visualization |
-| GitHub | Version control & documentation |
+|---|---|
+| Python (pandas) | Data cleaning, validation, audit reporting |
+| MySQL | Dimensional modeling, data loading, analytical SQL |
+| Power BI | Interactive dashboard and KPI visualization |
+| GitHub | Version control and documentation |
 
 ---
 
 ## 1. Data Cleaning (Python)
 
-Three Python scripts handle the complete data quality pipeline:
-
 ### `01_raw_data_preview_cnt.py` — Raw Data Audit
 - Generates a full audit report (Excel): descriptive statistics, missing values, unique counts, data types
-- Exports preview (first 100 rows) and random sample (100 rows) as CSV for quick inspection
+- Exports row preview (100 rows) and random sample (100 rows) as CSV
 
 ### `02_clean_data_cnt.py` — Data Cleaning & Validation
-- **Date formatting**: Converts inconsistent date formats (DD/MM/YYYY, DD-MM-YYYY) to standard datetime
+- **Date formatting**: Converts inconsistent formats (DD/MM/YYYY, DD-MM-YYYY) to standard datetime
 - **Numeric validation**: Strips currency symbols/commas, coerces to numeric, logs errors to CSV
-- **Text standardization**: Removes accents (e.g., São Paulo → Sao Paulo), trims whitespace, applies Proper Case
-- **Data quality checks**:
-  - Decimal precision analysis for all numeric fields → `numeric_decimal_summary.csv`
-  - Product ID ↔ Product Name conflict detection → `product_id_name_conflicts.csv`
-- **Missing value handling**: Drops rows with null `order_date`; fills missing `discount` and `shipping_cost` with 0
+- **Text standardization**: Removes accents (São Paulo → Sao Paulo), trims whitespace, applies Proper Case
+- **Data quality checks**: Decimal precision analysis; product ID ↔ product name conflict detection
+- **Missing value handling**: Drops null `order_date` rows; fills missing `discount` and `shipping_cost` with 0
 
 ### `03_clean_check_cnt.py` — Post-Clean Verification
 - Re-runs the full audit on cleaned data to confirm all issues are resolved
-- Outputs cleaned report (Excel) + preview/sample CSVs for comparison
 
 ---
 
 ## 2. Database Design (MySQL — Snowflake Schema)
 
-Instead of a single flat table, this project implements a **snowflake schema** with normalized dimension tables and a central fact table, demonstrating production-level data warehouse design.
+Rather than a flat table, this project implements a full **Snowflake Schema** with normalized dimension hierarchies and a central fact table.
 
 ### Schema Diagram
 
-```mermaid 
+```mermaid
 erDiagram
-    %% 定義 Fact Table
     fact_sales {
         string sales_id PK
         string order_id
@@ -85,118 +81,76 @@ erDiagram
         float shipping_cost
         string order_priority
     }
+    dim_date { date date_id PK }
+    dim_customer { string customer_id PK }
+    dim_product { string product_id PK }
+    dim_sub_category { string sub_category_id PK }
+    dim_category { string category_id PK }
+    dim_state { string state_id PK }
+    dim_country { string country_id PK }
+    dim_market { string market_id PK }
+    dim_region { string region_id PK }
 
-    %% 定義 Dimension Tables
-    dim_date {
-        date date_id PK
-    }
-
-    dim_customer {
-        string customer_id PK
-    }
-
-    dim_product {
-        string product_id PK
-    }
-
-    dim_sub_category {
-        string sub_category_id PK
-    }
-
-    dim_category {
-        string category_id PK
-    }
-
-    dim_state {
-        string state_id PK
-    }
-
-    dim_country {
-        string country_id PK
-    }
-
-    dim_market {
-        string market_id PK
-    }
-
-    dim_region {
-        string region_id PK
-    }
-
-    %% 定義關聯性 (Snowflake Schema)
     dim_date ||--o{ fact_sales : "order_date_id"
     dim_date ||--o{ fact_sales : "ship_date_id"
     dim_state ||--o{ fact_sales : "ships to"
     dim_product ||--o{ fact_sales : "contains"
     dim_customer ||--o{ fact_sales : "purchases"
-
     dim_region ||--o{ dim_market : "has"
     dim_market ||--o{ dim_country : "has"
     dim_country ||--o{ dim_state : "has"
-
     dim_category ||--o{ dim_sub_category : "has"
     dim_sub_category ||--o{ dim_product : "has"
- ```
+```
 
 ### Dimension Tables
 
 | Table | Description | Key Design Decisions |
-|-------|-------------|---------------------|
+|---|---|---|
 | `dim_date` | 10-year calendar (2011–2020) | Pre-generated with year, quarter, month, day_of_week, is_weekend |
 | `dim_customer` | Unique customer + segment | Composite unique key (customer_name, segment) |
 | `dim_region` → `dim_market` → `dim_country` → `dim_state` | Geographic hierarchy | Normalized 4-level hierarchy with foreign keys |
-| `dim_category` → `dim_sub_category` → `dim_product` | Product hierarchy | Handles 1:N product_id ↔ product_name conflicts via composite unique key |
-| `fact_sales` | Transaction-level facts | Surrogate key (sales_id); preserves duplicate business records from staging |
+| `dim_category` → `dim_sub_category` → `dim_product` | Product hierarchy | Handles 1:N product_id ↔ product_name conflicts via composite key |
+| `fact_sales` | Transaction-level facts | Surrogate key (sales_id); preserves duplicate business records |
 
 ---
 
-## 3. Data Pipeline & Quality Assurance
-
-The SQL pipeline follows a strict staging → transform → validate workflow:
+## 3. SQL Pipeline & Data Quality
 
 ### Loading & Transformation
 
 | Step | Script | Purpose |
-|------|--------|---------|
-| 1 | `01.create_import_staging_cnt.sql` | Create staging table & load cleaned CSV via `LOAD DATA` |
-| 2 | `02.check_staging_data_cnt.sql` | Verify row/column counts, check unique keys, detect full duplicates |
-| 3 | `03.create_import_dim_fact_cnt.sql` | Create all dimension & fact tables; populate via INSERT with multi-table JOINs |
+|---|---|---|
+| 1 | `01.create_import_staging_cnt.sql` | Create staging table and load cleaned CSV |
+| 2 | `02.check_staging_data_cnt.sql` | Verify row/column counts, unique keys, duplicates |
+| 3 | `03.create_import_dim_fact_cnt.sql` | Create all dimension and fact tables via multi-table INSERT |
 
 ### Bidirectional Reconciliation
 
 | Step | Script | Purpose |
-|------|--------|---------|
-| 4 | `04.check_staging_exists_fact_not.sql` | Find records in staging but missing from fact (loading gaps) |
-| 5 | `05.check_fact_exists_staging_not.sql` | Find records in fact but missing from staging (phantom records) |
-| 6 | `08.staging_vs_fact_view.sql` | Compare totals (row count, sales, quantity, profit) across staging → fact → view |
+|---|---|---|
+| 4 | `04.check_staging_exists_fact_not.sql` | Records in staging missing from fact (loading gaps) |
+| 5 | `05.check_fact_exists_staging_not.sql` | Records in fact missing from staging (phantom records) |
+| 6 | `08.staging_vs_fact_view.sql` | Compare totals (rows, sales, quantity, profit) across all layers |
 
 ### Views & Indexes
 
 | Step | Script | Purpose |
-|------|--------|---------|
-| 7 | `06.create_view.sql` | `vw_sales_full` — full denormalized view joining all dimensions (for Power BI) |
-| 8 | `index.sql` | `vw_sales_summary` — pre-aggregated view by time, segment, region, category |
+|---|---|---|
+| 7 | `06.create_view.sql` | `vw_sales_full` — full denormalized view for Power BI |
+| 8 | `index.sql` | `vw_sales_summary` — pre-aggregated view by time/segment/region/category |
 | 9 | `07.check_fact_vw_distinct.sql` | Verify distinct value counts across fact table and view |
 
 ---
 
 ## 4. SQL Analysis
 
-### Analyst Queries (`sql/analyst/`)
+### Key Business Questions
 
-| Query | Business Question |
-|-------|-------------------|
-| `market_country_x_category.sql` | Sales & profit breakdown by market → country → state → category → sub-category |
-| `raw_produt_id_x_profit.sql` | Per-product sales, profit & shipping cost ranking |
-| `raw_produt_id_x_month.sql` | Monthly product-level sales trends (seasonality detection) |
-| `raw_produt_id_x_year.sql` | Year-over-year product performance comparison |
-
-### Key Business Questions (from views)
-
-**Which product categories generate the highest sales?**
+**Which categories generate the highest sales and profit?**
 ```sql
 SELECT category_name,
-       ROUND(SUM(total_sales), 0) AS sales,
+       ROUND(SUM(total_sales), 0)  AS sales,
        ROUND(SUM(total_profit), 0) AS profit,
        ROUND(AVG(profit_margin_pct), 1) AS avg_margin_pct
 FROM vw_sales_summary
@@ -208,13 +162,13 @@ ORDER BY sales DESC;
 ```sql
 SELECT
     CASE
-        WHEN discount = 0 THEN 'No Discount'
-        WHEN discount <= 0.10 THEN 'Low (0–10%)'
-        WHEN discount <= 0.30 THEN 'Medium (11–30%)'
-        ELSE 'High (>30%)'
+        WHEN discount = 0        THEN 'No Discount'
+        WHEN discount <= 0.10    THEN 'Low (0–10%)'
+        WHEN discount <= 0.30    THEN 'Medium (11–30%)'
+        ELSE                          'High (>30%)'
     END AS discount_band,
-    SUM(sales) AS total_sales,
-    SUM(profit) AS total_profit,
+    SUM(sales)   AS total_sales,
+    SUM(profit)  AS total_profit,
     ROUND(SUM(profit) / NULLIF(SUM(sales), 0) * 100, 2) AS profit_margin_pct
 FROM vw_sales_full
 GROUP BY discount_band
@@ -228,64 +182,59 @@ ORDER BY profit_margin_pct DESC;
 ### Page 1: Executive Summary
 <img src="photo/bi01.png" alt="Executive Summary Dashboard" width="100%">
 
-- **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), AVG Margin (5.00%)
-- **Sales Trend**: Monthly sales comparison (2013 vs 2014) showing seasonal patterns
-- **Top 10 Sub-Categories**: Sales, Profit, Margin table with conditional formatting (negative margins highlighted)
+- **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), Avg Margin (5.00%)
+- **Sales Trend**: Monthly comparison (2013 vs 2014) highlighting seasonal patterns
+- **Top 10 Sub-Categories**: Sales, profit, margin table with conditional formatting (negative margins flagged)
 - **Market Distribution**: Pie chart — APAC (28%), EU (24%), US (17%), LATAM (16%), EMEA (7%)
 - **ABC Analysis**: Sub-category classification by sales and profit contribution
-- **Slicers**: Segment (Consumer/Corporate/Home Office), Category
+- **Slicers**: Segment, Category
 
 ### Page 2: Product Performance
 <img src="photo/bi02.png" alt="Product Performance" width="100%">
 
-- **Category Profitability Table**: Technology (14% margin), Office Supplies (14%), Furniture (7%)
-- **Sub-Category Deep Dive**: Sales & profit bar charts with year-over-year comparison (2011–2014)
-- **ABC Treemap**: Visual classification of sub-categories by sales volume
-- **Segment & Category Breakdown**: Pie charts for sales distribution
+- Category profitability comparison (Technology 14%, Office Supplies 14%, Furniture 7%)
+- Sub-category year-over-year sales and profit bar charts (2011–2014)
+- ABC Treemap for visual sub-category classification
+- Segment and category sales distribution pie charts
 
 ### Page 3: Promotion Impact
 <img src="photo/bi03.png" alt="Promotion Impact" width="100%">
 
-- **Discount vs Margin Scatter Plot**: AVG Discount % vs AVG Margin % by sub-category (with quantity as bubble size)
+- **Scatter Plot**: Avg Discount % vs Avg Margin % by sub-category (bubble size = quantity)
 - **Discount Impact Charts**: Sales and profit distribution by discount level across years
-- **ROI by Sub-Category**: Bar chart ranking — Paper (highest ROI) to Tables (negative ROI)
-- **Profit Trend**: Year-over-year profit growth visualization
-
-**Interactive Features**: Year slicer (2011–2014), Segment slicer, Category slicer, Sub-Category dropdown
+- **ROI by Sub-Category**: Ranking from Paper (highest) to Tables (negative ROI)
+- Profit trend year-over-year
 
 ---
 
 ## Key Insights
 
 ### Category Performance
+
 | Category | Sales | Profit Margin | Assessment |
-|----------|-------|---------------|------------|
-| Technology | $4.74M | 14% | Core growth engine — highest sales AND profit margin |
-| Office Supplies | $3.79M | 14% | Stable profit source — similar margin with lower volume |
-| Furniture | $4.11M | 7% | High volume, low margin — needs pricing/cost review |
+|---|---|---|---|
+| Technology | $4.74M | 14% | Core growth engine — highest sales and margin |
+| Office Supplies | $3.79M | 14% | Stable profit source |
+| Furniture | $4.11M | 7% | High volume, low margin — pricing review needed |
 
 ### Discount Impact
-| Discount Band | Sales | Profit Margin | Assessment |
-|---------------|-------|---------------|------------|
-| No Discount | $6.99M | 25.32% | Healthiest — strong demand without discounting |
-| Low (0–10%) | $1.70M | 16.56% | Best balance of volume and profit |
-| Medium (11–30%) | $2.13M | 7.11% | Thin margin — use cautiously |
-| High (>30%) | $1.80M | **-40.65%** | Unprofitable — causes net losses |
 
-### Sub-Category Highlights
-- **Top Performers**: Copiers ($104K profit, 19% margin), Phones ($71K, 13%), Accessories (16% margin)
-- **Underperformers**: Tables (-$30K profit, -13% margin), Machines (-3% avg margin)
-- **High Potential**: Bookcases (12% margin, $513K sales) — strong demand with room for margin improvement
+| Discount Band | Profit Margin | Assessment |
+|---|---|---|
+| No Discount | 25.32% | Healthiest — strong demand without incentives |
+| Low (0–10%) | 16.56% | Best balance of volume and profit |
+| Medium (11–30%) | 7.11% | Thin margin — use cautiously |
+| High (>30%) | **-40.65%** | Net loss territory — avoid |
 
 ---
 
 ## Business Recommendations
 
-1. **Cap discounts at 10%** — Discounts above 30% generate net losses; low discounts (0–10%) achieve the best balance of volume and profit
-2. **Investigate Furniture costs** — Second-highest sales but only 7% margin; review supply chain and pricing structure
-3. **Discontinue or reprice Tables** — Consistent negative margin (-13%) across all years suggests structural unprofitability
-4. **Double down on Technology** — Highest sales and strong margin; allocate marketing and inventory resources here
-5. **Implement category-specific pricing** — Replace blanket discount policies with targeted strategies per sub-category
+1. **Cap discounts at 10%** — Discounts above 30% consistently generate net losses
+2. **Review Furniture cost structure** — 2nd-highest revenue but only 7% margin
+3. **Discontinue or reprice Tables** — Negative margin (-13%) across all 4 years
+4. **Double down on Technology** — Strongest combination of revenue and margin
+5. **Replace blanket discounts with category-specific pricing strategies**
 
 ---
 
@@ -294,51 +243,19 @@ ORDER BY profit_margin_pct DESC;
 ```
 01_Superstore_Sales_Analysis/
 │
-├── data/
-│   ├── superstore.csv                               # Original raw dataset
-│   ├── SuperStoreOrders.csv.zip                     # Compressed backup
-│   ├── superstore_clean_20251229.csv                # Cleaned dataset (MySQL import source)
-│   ├── raw_superstore_report_20251229.xlsx          # Raw data audit report
-│   ├── clean_superstore_report_20251229.xlsx        # Clean data audit report
-│   ├── numeric_decimal_summary_20251229.csv         # Decimal precision analysis
-│   ├── product_id_name_conflicts_20251229.csv       # Product ID conflict report
-│   ├── superstore_unique_text_20251229.csv          # Unique text values reference
-│   ├── raw_superstore_preview_100_20251229.csv      # Raw data preview (100 rows)
-│   ├── raw_superstore_sample_100_20251229.csv       # Raw data random sample
-│   ├── clean_superstore_preview_100_20251229.csv    # Clean data preview (100 rows)
-│   └── clean_superstore_sample_100_20251229.csv     # Clean data random sample
-│
+├── data/                                            # Raw, cleaned, and audit datasets
 ├── scripts/
 │   ├── 01_raw_data_preview_cnt.py                   # Raw data audit
 │   ├── 02_clean_data_cnt.py                         # Data cleaning & validation
 │   └── 03_clean_check_cnt.py                        # Post-clean verification
-│
 ├── sql/
-│   ├── 01.create_import_staging_cnt.sql             # Create staging table & import
-│   ├── 02.check_staging_data_cnt.sql                # Staging data validation
-│   ├── 03.create_import_dim_fact_cnt.sql            # Dimension & fact table creation
-│   ├── 04.check_staging_exists_fact_not.sql         # Staging → Fact reconciliation
-│   ├── 05.check_fact_exists_staging_not.sql         # Fact → Staging reconciliation
-│   ├── 06.create_view.sql                           # Full denormalized view
-│   ├── 07.check_fact_vw_distinct.sql                # View integrity check
-│   ├── 08.staging_vs_fact_view.sql                  # Cross-layer total comparison
+│   ├── 01–08 pipeline scripts                       # Staging → dimensions → fact → views
 │   ├── index.sql                                    # Indexes & summary view
-│   ├── test_powerbi.sql                             # KPI verification queries
-│   ├── drop_table.sql                               # Schema teardown (dependency-safe)
-│   ├── README.txt                                   # SQL design notes & business insights
-│   ├── README_PROGRESS.txt                          # Development progress log
-│   └── analyst/
-│       ├── market_country_x_category.sql            # Geographic × Category breakdown
-│       ├── raw_produt_id_x_profit.sql               # Product-level profitability
-│       ├── raw_produt_id_x_month.sql                # Monthly product trends
-│       └── raw_produt_id_x_year.sql                 # Yearly product comparison
-│
+│   └── analyst/                                     # Analytical queries
 ├── powerBI/
-│   ├── superstore.pbix                              # Power BI dashboard file
+│   ├── superstore.pbix                              # Power BI dashboard
 │   └── superstore.pdf                               # Dashboard export (3 pages)
-│
-├── Ref/                                             # Reference dashboards & notebooks
-│
+├── photo/                                           # Dashboard screenshots
 └── README.md
 ```
 
@@ -346,13 +263,15 @@ ORDER BY profit_margin_pct DESC;
 
 ## How to Reproduce
 
-### Prerequisites
-- Python 3.8+ with `pandas`, `xlsxwriter`
-- MySQL 8.0+
-- Power BI Desktop
+**Prerequisites**: Python 3.8+, MySQL 8.0+, Power BI Desktop
 
-### Steps
-1. **Download dataset**: Get `superstore.csv` from [Kaggle](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset)
-2. **Run data cleaning**: `python scripts/02_clean_data_cnt.py`
-3. **Set up MySQL**: Execute SQL scripts in order (`01` → `08`)
-4. **Open Power BI**: Connect `superstore.pbix` to your MySQL instance via `vw_sales_full`
+1. Download `superstore.csv` from [Kaggle](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset)
+2. Run `python scripts/02_clean_data_cnt.py`
+3. Execute SQL scripts in order (`01` → `08`) in MySQL
+4. Open `superstore.pbix` in Power BI Desktop and connect to your MySQL instance via `vw_sales_full`
+
+---
+
+## License
+
+This project is licensed under the MIT License.
