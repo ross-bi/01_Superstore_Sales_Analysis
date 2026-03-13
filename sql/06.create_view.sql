@@ -26,7 +26,7 @@ SELECT
     r.region_id,
     r.region_name,           
     f.product_id,
-    p.raw_product_id,        -- Power BI 用呢個做真正單號
+    p.raw_product_id,        -- Power BI 用這個做真正單號
     p.product_name,
     p.sub_category_id,
     sc.sub_category_name,

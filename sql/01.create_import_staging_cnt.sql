@@ -27,7 +27,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 -- 匯入 CSV 檔案到 staging_superstore 表格
-LOAD DATA LOCAL INFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Data\\01_Superstore_Project\\data\\superstore_clean_20251229.csv'
+LOAD DATA LOCAL INFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Data\\01_Superstore_Project\\data\\superstore_clean_20260313.csv'
 
 INTO TABLE staging_sales
 FIELDS TERMINATED BY ','           -- 欄位以逗號分隔

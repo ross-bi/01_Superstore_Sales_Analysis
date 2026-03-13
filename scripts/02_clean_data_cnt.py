@@ -30,7 +30,7 @@ def is_ascii(s: str) -> bool:
 def export_unique_text_values(df: pd.DataFrame, base_dir: Path):
     """輸出文字欄位唯一值（寬格式：每個欄位一欄）"""
     timestamp = datetime.now().strftime("%Y%m%d")
-    output_file = base_dir / "data" / f"superstore_unique_text_{timestamp}.csv"
+    output_file = base_dir / "output" / "02_clean_preview" / f"superstore_unique_text_{timestamp}.csv"
 
     text_cols = df.select_dtypes(include="object").columns
     unique_values = {}
@@ -59,7 +59,7 @@ def export_unique_text_values(df: pd.DataFrame, base_dir: Path):
 def clean_superstore(base_dir: Path):
     input_file = base_dir / "data" / "superstore.csv"
     timestamp = datetime.now().strftime("%Y%m%d")
-    output_file = base_dir / "data" / f"superstore_clean_{timestamp}.csv"
+    output_file = base_dir / "output" / "03_clean_data" / f"superstore_clean_{timestamp}.csv"
 
     # 讀取原始資料
     try:
@@ -105,7 +105,7 @@ def clean_superstore(base_dir: Path):
             # 輸出錯誤報告 CSV
             bad_mask = df[col].isna()
             if bad_mask.any():
-                report_path = base_dir / "data" / f"{col}_invalid_{timestamp}.csv"
+                report_path = base_dir / "output" / "02_clean_preview" / f"{col}_invalid_{timestamp}.csv"
                 df.loc[bad_mask, [col]].to_csv(report_path, index=False, encoding="utf-8")
                 logging.info(f"📝 已輸出 {col} 錯誤報告: {report_path}")
 
@@ -142,7 +142,7 @@ def clean_superstore(base_dir: Path):
 
     if decimal_summary:
         dec_df = pd.DataFrame(decimal_summary)
-        dec_path = base_dir / "data" / f"numeric_decimal_summary_{timestamp}.csv"
+        dec_path = base_dir / "output" / "02_clean_preview" / f"numeric_decimal_summary_{timestamp}.csv"
         dec_df.to_csv(dec_path, index=False, encoding="utf-8")
         logging.info(f"📏 已輸出數值欄位小數位數統計: {dec_path}")
 
@@ -169,7 +169,7 @@ def clean_superstore(base_dir: Path):
             conflict_df = tmp[tmp["product_id"].isin(conflict_ids)].sort_values(
                 ["product_id", "product_name"]
             )
-            conflict_path = base_dir / "data" / f"product_id_name_conflicts_{timestamp}.csv"
+            conflict_path = base_dir / "output" / "02_clean_preview" / f"product_id_name_conflicts_{timestamp}.csv"
             conflict_df.to_csv(conflict_path, index=False, encoding="utf-8")
             logging.warning(
                 f"⚠️ 發現 {len(conflict_ids)} 個 product_id 對應多個 product_name，已輸出報表: {conflict_path}"

@@ -6,7 +6,7 @@ from datetime import datetime
 
 # 專案根目錄
 BASE_DIR = Path(__file__).resolve().parents[1]
-input_file = BASE_DIR / "data" / "superstore_clean_20251229.csv"
+input_file = BASE_DIR / "output"/ "03_clean_data" / "superstore_clean_20260313.csv"
 
 # 讀取原始資料
 df = pd.read_csv(input_file, encoding="utf-8")
@@ -25,7 +25,7 @@ def data_audit(df, base_dir=Path.cwd()):
     timestamp = datetime.now().strftime("%Y%m%d")
 
     # 動態檔名
-    output_file = base_dir / "data" / f"clean_superstore_report_{timestamp}.xlsx"
+    output_file = base_dir / "output"/ "04_clean_audit" / f"clean_superstore_report_{timestamp}.xlsx"
 
     # 輸出到 Excel
     with pd.ExcelWriter(output_file, engine="xlsxwriter") as writer:
@@ -40,8 +40,8 @@ def data_audit(df, base_dir=Path.cwd()):
 
     
     # 額外輸出 CSV
-    preview_csv = base_dir / "data" / f"clean_superstore_preview_100_{timestamp}.csv"
-    sample_csv = base_dir / "data" / f"clean_superstore_sample_100_{timestamp}.csv"
+    preview_csv = base_dir / "output"/ "04_clean_audit" / f"clean_superstore_preview_100_{timestamp}.csv"
+    sample_csv = base_dir / "output"/ "04_clean_audit" / f"clean_superstore_sample_100_{timestamp}.csv"
 
     df.head(100).to_csv(preview_csv, index=False, encoding="utf-8")
     df.sample(100, random_state=42).to_csv(sample_csv, index=False, encoding="utf-8")

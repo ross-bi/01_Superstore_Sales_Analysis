@@ -25,7 +25,7 @@ def data_audit(df, base_dir=Path.cwd()):
     timestamp = datetime.now().strftime("%Y%m%d")
 
     # 動態檔名
-    output_file = base_dir / "data" / f"raw_superstore_report_{timestamp}.xlsx"
+    output_file = base_dir / "output" / "01_raw_preview" / f"raw_superstore_report_{timestamp}.xlsx"
 
     # 輸出到 Excel
     with pd.ExcelWriter(output_file, engine="xlsxwriter") as writer:
@@ -40,8 +40,8 @@ def data_audit(df, base_dir=Path.cwd()):
 
     
     # 額外輸出 CSV
-    preview_csv = base_dir / "data" / f"raw_superstore_preview_100_{timestamp}.csv"
-    sample_csv = base_dir / "data" / f"raw_superstore_sample_100_{timestamp}.csv"
+    preview_csv = base_dir / "output" / "01_raw_preview" / f"raw_superstore_preview_100_{timestamp}.csv"
+    sample_csv = base_dir / "output" / "01_raw_preview" / f"raw_superstore_sample_100_{timestamp}.csv"
 
     df.head(100).to_csv(preview_csv, index=False, encoding="utf-8")
     df.sample(100, random_state=42).to_csv(sample_csv, index=False, encoding="utf-8")
