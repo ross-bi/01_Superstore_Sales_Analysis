@@ -236,7 +236,9 @@ ORDER BY profit_margin_pct DESC;
 ├── scripts/
 │   ├── 01_raw_data_preview_cnt.py                 # 原始資料稽核
 │   ├── 02_clean_data_cnt.py                       # 資料清理與驗證
-│   └── 03_clean_check_cnt.py                      # 清理後驗證檢查
+│   └── 03_clean_audit_cnt.py                      # 清理後驗證檢查
+├── output/                                        # 腳本產生的輸出檔案
+│   ├── 01–04 pipeline scripts                     # 原始稽核預覽 → 清理後預覽 → 清理後資料（供匯入）→ 清理後稽核報告
 ├── sql/
 │   ├── 01–08 pipeline scripts                     # 從暫存層 → 維度表 → 事實表 → 檢視表的流程腳本
 │   ├── index.sql                                  # 索引與彙總檢視

@@ -246,11 +246,13 @@ ORDER BY profit_margin_pct DESC;
 ```
 01_Superstore_Sales_Analysis/
 │
-├── data/                                            # Raw, cleaned, and audit datasets
+├── data/                                            # Raw source dataset (CSV)
 ├── scripts/
 │   ├── 01_raw_data_preview_cnt.py                   # Raw data audit
 │   ├── 02_clean_data_cnt.py                         # Data cleaning & validation
-│   └── 03_clean_check_cnt.py                        # Post-clean verification
+│   └── 03_clean_audit_cnt.py                        # Post-clean verification
+├── output/ # Script-generated output files
+│   ├── 01–04 pipeline scripts                       # Raw audit previews → cleaned previews → cleaned for import → post-clean audit
 ├── sql/
 │   ├── 01–08 pipeline scripts                       # Staging → dimensions → fact → views
 │   ├── index.sql                                    # Indexes & summary view
@@ -258,7 +260,7 @@ ORDER BY profit_margin_pct DESC;
 ├── powerBI/
 │   ├── superstore.pbix                              # Power BI dashboard
 │   └── superstore.pdf                               # Dashboard export (3 pages)
-├── screenshot/                                           # Dashboard screenshots
+├── screenshot/                                      # Dashboard screenshots
 └── README.md
 ```
 
