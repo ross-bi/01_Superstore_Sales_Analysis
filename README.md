@@ -183,7 +183,7 @@ ORDER BY profit_margin_pct DESC;
 ## 5. Power BI Dashboard (3 Pages)
 
 ### Page 1: Executive Summary
-<img src="photo/bi01.png" alt="Executive Summary Dashboard" width="100%">
+<img src="screenshot/bi01.png" alt="Executive Summary Dashboard" width="100%">
 
 - **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), Avg Margin (5.00%)
 - **Sales Trend**: Monthly comparison (2013 vs 2014) highlighting seasonal patterns
@@ -193,7 +193,7 @@ ORDER BY profit_margin_pct DESC;
 - **Slicers**: Segment, Category
 
 ### Page 2: Product Performance
-<img src="photo/bi02.png" alt="Product Performance" width="100%">
+<img src="screenshot/bi02.png" alt="Product Performance" width="100%">
 
 - Category profitability comparison (Technology 14%, Office Supplies 14%, Furniture 7%)
 - Sub-category year-over-year sales and profit bar charts (2011–2014)
@@ -201,7 +201,7 @@ ORDER BY profit_margin_pct DESC;
 - Segment and category sales distribution pie charts
 
 ### Page 3: Promotion Impact
-<img src="photo/bi03.png" alt="Promotion Impact" width="100%">
+<img src="screenshot/bi03.png" alt="Promotion Impact" width="100%">
 
 - **Scatter Plot**: Avg Discount % vs Avg Margin % by sub-category (bubble size = quantity)
 - **Discount Impact Charts**: Sales and profit distribution by discount level across years
@@ -258,7 +258,7 @@ ORDER BY profit_margin_pct DESC;
 ├── powerBI/
 │   ├── superstore.pbix                              # Power BI dashboard
 │   └── superstore.pdf                               # Dashboard export (3 pages)
-├── photo/                                           # Dashboard screenshots
+├── screenshot/                                           # Dashboard screenshots
 └── README.md
 ```
 

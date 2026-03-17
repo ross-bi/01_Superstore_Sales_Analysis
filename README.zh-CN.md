@@ -136,11 +136,42 @@ erDiagram
 | 6 | `08.staging_vs_fact_view.sql` | 跨层比对总计（列数、销售额、数量、利润） |
 
 ---
+## 四、SQL 分析
 
-## 四、Power BI 仪表板（3 页）
+### 主要商业问题
+
+**哪些商品类别带来最高的销售额与利润？**
+```sql
+SELECT category_name,
+       ROUND(SUM(total_sales), 0)  AS sales,
+       ROUND(SUM(total_profit), 0) AS profit,
+       ROUND(AVG(profit_margin_pct), 1) AS avg_margin_pct
+FROM vw_sales_summary
+GROUP BY category_name
+ORDER BY sales DESC;
+```
+
+**折扣如何影响获利能力？**
+```sql
+SELECT
+    CASE
+        WHEN discount = 0        THEN 'No Discount'
+        WHEN discount <= 0.10    THEN 'Low (0–10%)'
+        WHEN discount <= 0.30    THEN 'Medium (11–30%)'
+        ELSE                          'High (>30%)'
+    END AS discount_band,
+    SUM(sales)   AS total_sales,
+    SUM(profit)  AS total_profit,
+    ROUND(SUM(profit) / NULLIF(SUM(sales), 0) * 100, 2) AS profit_margin_pct
+FROM vw_sales_full
+GROUP BY discount_band
+ORDER BY profit_margin_pct DESC;
+```
+---
+## 五、Power BI 仪表板（3 页）
 
 ### 第 1 页：执行摘要
-<img src="photo/bi01.png" alt="执行摘要仪表板" width="100%">
+<img src="screenshot/bi01.png" alt="执行摘要仪表板" width="100%">
 
 - **KPI 卡片**：销售额（$4.30M）、利润（$504K）、ROI（13.28%）、销售额 YoY（+26.25%）、平均利润率（5.00%）
 - **销售趋势**：2013 vs 2014 月度比较，呈现季节性模式
@@ -149,14 +180,14 @@ erDiagram
 - **ABC 分析**：按销售及利润贡献分类子类别
 
 ### 第 2 页：产品表现
-<img src="photo/bi02.png" alt="产品表现" width="100%">
+<img src="screenshot/bi02.png" alt="产品表现" width="100%">
 
 - 类别盈利比较（科技 14%、办公用品 14%、家具 7%）
 - 子类别 YoY 销售与利润条形图（2011–2014）
 - ABC Treemap 可视化分类
 
 ### 第 3 页：促销影响
-<img src="photo/bi03.png" alt="促销影响" width="100%">
+<img src="screenshot/bi03.png" alt="促销影响" width="100%">
 
 - **散点图**：平均折扣率 vs 平均利润率（以数量为气泡大小）
 - **折扣影响图**：各折扣层级的销售与利润分布
@@ -193,6 +224,29 @@ erDiagram
 4. **加大科技产品投入** — 最强的收入与利润率组合
 5. **以类别专属定价策略取代全面折扣政策**
 
+---
+
+## 项目结构
+
+```
+01_Superstore_Sales_Analysis/
+│
+├── data/                                          # 原始資料、清理後資料與稽核資料集
+├── scripts/
+│   ├── 01_raw_data_preview_cnt.py                 # 原始資料稽核
+│   ├── 02_clean_data_cnt.py                       # 資料清理與驗證
+│   └── 03_clean_check_cnt.py                      # 清理後驗證檢查
+├── sql/
+│   ├── 01–08 pipeline scripts                     # 從暫存層 → 維度表 → 事實表 → 檢視表的流程腳本
+│   ├── index.sql                                  # 索引與彙總檢視
+│   └── analyst/                                   # 分析用 SQL 查詢
+├── powerBI/
+│   ├── superstore.pbix                            # Power BI 儀表板檔案
+│   └── superstore.pdf                             # 儀表板導出檔（3 頁）
+├── screenshot/                                    # 儀表板截圖
+└── README.md
+
+```
 ---
 
 ## 如何重现本项目
