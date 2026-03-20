@@ -277,6 +277,10 @@ ORDER BY profit_margin_pct DESC;
 
 ---
 
+## Author
+
+ross-bi | [GitHub](https://github.com/ross-bi)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.

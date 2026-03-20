@@ -263,6 +263,10 @@ ORDER BY profit_margin_pct DESC;
 
 ---
 
+## 作者
+
+ross-bi | [GitHub](https://github.com/ross-bi)
+
 ## 授權條款
 
 本專案採用 [MIT LICENSE](./LICENSE)  授權。
