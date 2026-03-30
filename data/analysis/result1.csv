@@ -1,0 +1,11 @@
+TABLE_NAME,TABLE_TYPE,TABLE_ROWS
+dim_category,"BASE TABLE",3
+dim_country,"BASE TABLE",323
+dim_customer,"BASE TABLE",795
+dim_date,"BASE TABLE",3474
+dim_market,"BASE TABLE",18
+dim_product,"BASE TABLE",11000
+dim_region,"BASE TABLE",13
+dim_state,"BASE TABLE",2761
+dim_sub_category,"BASE TABLE",17
+fact_sales,"BASE TABLE",51117

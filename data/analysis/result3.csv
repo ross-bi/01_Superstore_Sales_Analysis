@@ -1,0 +1,12 @@
+tbl,row_cnt
+staging_sales,51290
+fact_sales,51290
+dim_date,3653
+dim_customer,795
+dim_product,10768
+dim_sub_category,17
+dim_category,3
+dim_state,2761
+dim_country,323
+dim_market,18
+dim_region,13

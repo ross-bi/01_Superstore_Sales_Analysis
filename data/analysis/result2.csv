@@ -1,0 +1,11 @@
+TABLE_NAME,COLUMN_NAME,col_order,COLUMN_TYPE,IS_NULLABLE,key_type
+dim_category,category_id,1,int,NO,PRI
+dim_category,category_name,2,varchar(50),YES,UNI
+dim_country,country_id,1,int,NO,PRI
+dim_country,country_name,2,varchar(50),YES,MUL
+dim_country,market_id,3,int,YES,MUL
+dim_customer,customer_id,1,int,NO,PRI
+dim_customer,customer_name,2,varchar(100),YES,MUL
+dim_customer,segment,3,varchar(20),YES,
+dim_date,date_id,1,date,NO,PRI
+dim_date,year,2,int,YES,MUL
