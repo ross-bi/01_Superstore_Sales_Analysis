@@ -1,0 +1,11 @@
+date_id,year,quarter,month,month_name,day,day_of_week,week_of_year,is_weekend
+2011-01-01,2011,1,1,January,1,Saturday,52,1
+2011-01-02,2011,1,1,January,2,Sunday,52,1
+2011-01-03,2011,1,1,January,3,Monday,1,0
+2011-01-04,2011,1,1,January,4,Tuesday,1,0
+2011-01-05,2011,1,1,January,5,Wednesday,1,0
+2011-01-06,2011,1,1,January,6,Thursday,1,0
+2011-01-07,2011,1,1,January,7,Friday,1,0
+2011-01-08,2011,1,1,January,8,Saturday,1,1
+2011-01-09,2011,1,1,January,9,Sunday,1,1
+2011-01-10,2011,1,1,January,10,Monday,2,0
