@@ -38,7 +38,7 @@ SELECT
     SUM(fs.quantity)                                     AS total_qty,
     SUM(fs.profit)                                       AS total_profit,
     COUNT(DISTINCT fs.order_id)                          AS order_count,
-    ROUND(AVG(COALESCE(fs.profit / fs.sales, 0)) * 100, 2) AS profit_margin_pct
+    ROUND(SUM(total_profit) / NULLIF(SUM(total_sales), 0), 2) AS true_margin
 FROM fact_sales fs
 JOIN dim_date        dd  ON fs.order_date_id  = dd.date_id
 JOIN dim_customer    dc  ON fs.customer_id    = dc.customer_id

@@ -18,7 +18,8 @@ The goal is to support **procurement, inventory planning, and promotion optimiza
 ### What This Project Covers
 
 - Data cleaning and validation using **Python (pandas)**
-- Snowflake-style dimensional modeling in **MySQL** (staging → dimensions/facts → views)
+- Snowflake-style dimensional modeling in **MySQL** (staging → dimensions/facts → views):  
+  `vw_sales_full` for row-level SQL/Python analysis; `vw_sales_summary` for pre-aggregated KPI queries
 - Bidirectional data reconciliation for pipeline integrity verification
 - 3-page interactive dashboard in **Power BI**
 - Business insights and actionable recommendations
@@ -140,8 +141,8 @@ erDiagram
 
 | Step | Script | Purpose |
 |---|---|---|
-| 7 | `06.create_view.sql` | `vw_sales_full` — full denormalized view for Power BI |
-| 8 | `index.sql` | `vw_sales_summary` — pre-aggregated view by time/segment/region/category |
+| 7 | `06.create_view.sql` | `vw_sales_full` — row-level flattened view for SQL ad-hoc analysis and Python EDA |
+| 8 | `index.sql` | `vw_sales_summary` — pre-aggregated view by time/segment/region/category for KPI queries; indexes on `fact_sales` |
 | 9 | `07.check_fact_vw_distinct.sql` | Verify distinct value counts across fact table and view |
 
 ---
@@ -273,7 +274,11 @@ ORDER BY profit_margin_pct DESC;
 1. Download `superstore.csv` from [Kaggle](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset)
 2. Run `python scripts/02_clean_data_cnt.py`
 3. Execute SQL scripts in order (`01` → `08`) in MySQL
-4. Open `superstore.pbix` in Power BI Desktop and connect to your MySQL instance via `vw_sales_full`
+4. Open `superstore.pbix` in Power BI Desktop and connect to your MySQL instance.  
+   Import the following tables directly (Star Schema):  
+   - **Fact**: `fact_sales`  
+   - **Dimensions**: `dim_date` *(mark as Date Table)*, `dim_customer`, `dim_product`, `dim_sub_category`, `dim_category`, `dim_state`, `dim_country`, `dim_market`, `dim_region`  
+   - **Note**: `vw_sales_full` is for SQL/Python ad-hoc analysis; `vw_sales_summary` is for MySQL KPI queries. Neither is used as the Power BI data source.
 
 ---
 

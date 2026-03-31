@@ -1,4 +1,8 @@
--- 建議用 VIEW，方便之後重複使用
+
+-- vw_sales_full：行級 flattened view，供 SQL ad-hoc 分析 / Python EDA 用
+-- Power BI 請使用 fact_sales + dim tables（Star Schema）
+-- 彙總分析請使用 vw_sales_summary
+
 CREATE OR REPLACE VIEW vw_sales_full AS
 SELECT
     f.sales_id,
