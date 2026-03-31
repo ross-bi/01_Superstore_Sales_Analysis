@@ -19,18 +19,18 @@ CREATE TABLE IF NOT EXISTS dim_customer (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 地理維度（完整層級）
-CREATE TABLE IF NOT EXISTS dim_region (
-    region_id INT AUTO_INCREMENT PRIMARY KEY,
-    region_name VARCHAR(20),
-    UNIQUE KEY uk_region_name (region_name)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE IF NOT EXISTS dim_market (
     market_id INT AUTO_INCREMENT PRIMARY KEY,
     market_name VARCHAR(20),
-    region_id INT,
-    UNIQUE KEY uk_market_region (market_name, region_id),
-    FOREIGN KEY (region_id) REFERENCES dim_region(region_id)
+    UNIQUE KEY uk_market_name (market_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS dim_region (
+    region_id INT AUTO_INCREMENT PRIMARY KEY,
+    region_name VARCHAR(20),
+    market_id INT,
+    UNIQUE KEY uk_region_market (region_name, market_id),
+    FOREIGN KEY (market_id) REFERENCES dim_market(market_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS dim_country (
@@ -136,9 +136,14 @@ INSERT IGNORE INTO dim_customer (customer_name, segment)
 SELECT DISTINCT customer_name, segment FROM staging_sales;
 
 -- 3. 地理維度（層級依賴）
-INSERT IGNORE INTO dim_region (region_name) SELECT DISTINCT region FROM staging_sales;
-INSERT IGNORE INTO dim_market (market_name, region_id) 
-SELECT DISTINCT s.market, r.region_id FROM staging_sales s JOIN dim_region r ON s.region = r.region_name;
+INSERT IGNORE INTO dim_market (market_name)
+SELECT DISTINCT market FROM staging_sales;
+
+INSERT IGNORE INTO dim_region (region_name, market_id)
+SELECT DISTINCT s.region, m.market_id
+FROM staging_sales s
+JOIN dim_market m ON s.market = m.market_name;
+
 INSERT IGNORE INTO dim_country (country_name, market_id) 
 SELECT DISTINCT s.country, m.market_id FROM staging_sales s JOIN dim_market m ON s.market = m.market_name;
 INSERT IGNORE INTO dim_state (state_name, country_id) 
@@ -165,10 +170,10 @@ SELECT
     c.customer_id, st.state_id, p.product_id,
     s.sales, s.quantity, s.discount, s.profit, s.shipping_cost, s.order_priority, YEAR(s.order_date)
 FROM staging_sales s
-JOIN dim_region r ON s.region = r.region_name
-JOIN dim_market m ON s.market = m.market_name AND m.region_id = r.region_id
-JOIN dim_country dc ON s.country = dc.country_name AND dc.market_id = m.market_id
-JOIN dim_state st ON s.state = st.state_name AND st.country_id = dc.country_id
+JOIN dim_market m  ON s.market  = m.market_name
+JOIN dim_region r  ON s.region  = r.region_name  AND r.market_id  = m.market_id
+JOIN dim_country dc ON s.country = dc.country_name AND dc.region_id = r.region_id
+JOIN dim_state st  ON s.state   = st.state_name   AND st.country_id = dc.country_id
 JOIN dim_customer c ON s.customer_name = c.customer_name AND s.segment = c.segment
 -- JOIN 條件改用複合鍵，確保匹配到正確的 product_name
 JOIN dim_product p ON s.product_id = p.raw_product_id AND s.product_name = p.product_name
