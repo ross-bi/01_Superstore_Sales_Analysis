@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS dim_region (
 CREATE TABLE IF NOT EXISTS dim_country (
     country_id INT AUTO_INCREMENT PRIMARY KEY,
     country_name VARCHAR(50),
-    market_id INT,
-    UNIQUE KEY uk_country_market (country_name, market_id),
-    FOREIGN KEY (market_id) REFERENCES dim_market(market_id)
+    region_id INT,                                          
+    UNIQUE KEY uk_country_region (country_name, region_id), 
+    FOREIGN KEY (region_id) REFERENCES dim_region(region_id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS dim_state (
@@ -144,10 +144,16 @@ SELECT DISTINCT s.region, m.market_id
 FROM staging_sales s
 JOIN dim_market m ON s.market = m.market_name;
 
-INSERT IGNORE INTO dim_country (country_name, market_id) 
-SELECT DISTINCT s.country, m.market_id FROM staging_sales s JOIN dim_market m ON s.market = m.market_name;
+INSERT IGNORE INTO dim_country (country_name, region_id)
+SELECT DISTINCT s.country, r.region_id
+FROM staging_sales s
+JOIN dim_region r ON s.region = r.region_name;
+
 INSERT IGNORE INTO dim_state (state_name, country_id) 
-SELECT DISTINCT s.state, c.country_id FROM staging_sales s JOIN dim_country c ON s.country = c.country_name;
+SELECT DISTINCT s.state, c.country_id 
+FROM staging_sales s 
+JOIN dim_country c ON s.country = c.country_name;
+
 
 -- 4. 產品維度（✅ 支援同 raw_product_id 不同 product_name）
 INSERT IGNORE INTO dim_category (category_name) SELECT DISTINCT category FROM staging_sales;
