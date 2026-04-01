@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS dim_region (
 CREATE TABLE IF NOT EXISTS dim_country (
     country_id INT AUTO_INCREMENT PRIMARY KEY,
     country_name VARCHAR(50),
-    region_id INT,                                          
-    UNIQUE KEY uk_country_region (country_name, region_id), 
-    FOREIGN KEY (region_id) REFERENCES dim_region(region_id) 
+    region_id INT,
+    UNIQUE KEY uk_country_region (country_name, region_id),
+    FOREIGN KEY (region_id) REFERENCES dim_region(region_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS dim_state (
@@ -94,7 +94,6 @@ CREATE TABLE IF NOT EXISTS fact_sales (
     profit DECIMAL(10,5),
     shipping_cost DECIMAL(10,2),
     order_priority VARCHAR(10),
-    order_year INT,
     FOREIGN KEY (order_date_id) REFERENCES dim_date(date_id),
     FOREIGN KEY (ship_date_id) REFERENCES dim_date(date_id),
     FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
@@ -168,13 +167,13 @@ JOIN dim_sub_category sc ON s.sub_category = sc.sub_category_name;
 
 -- 5. 事實表
 INSERT INTO fact_sales (
-    order_id, order_date_id, ship_date_id, ship_mode, customer_id, state_id, 
-    product_id, sales, quantity, discount, profit, shipping_cost, order_priority, order_year
+    order_id, order_date_id, ship_date_id, ship_mode, customer_id, state_id,
+    product_id, sales, quantity, discount, profit, shipping_cost, order_priority
 )
 SELECT
     s.order_id, s.order_date, s.ship_date, s.ship_mode,
     c.customer_id, st.state_id, p.product_id,
-    s.sales, s.quantity, s.discount, s.profit, s.shipping_cost, s.order_priority, YEAR(s.order_date)
+    s.sales, s.quantity, s.discount, s.profit, s.shipping_cost, s.order_priority
 FROM staging_sales s
 JOIN dim_market m  ON s.market  = m.market_name
 JOIN dim_region r  ON s.region  = r.region_name  AND r.market_id  = m.market_id
@@ -191,7 +190,7 @@ WHERE s.order_date BETWEEN '2011-01-01' AND '2020-12-31';
 SELECT '總覽統計' AS 報告類型, 
        'staging_sales' AS 表名, COUNT(*) AS 筆數 FROM staging_sales
 UNION ALL SELECT '總覽統計', 'fact_sales', COUNT(*) FROM fact_sales
-UNION ALL SELECT '總覽統計', 'staging vs fact差異',  -- ✅ 新增差異行
+UNION ALL SELECT '總覽統計', 'staging vs fact差異',
 				(SELECT COUNT(*) FROM staging_sales) - (SELECT COUNT(*) FROM fact_sales)
 UNION ALL SELECT '維度統計', 'dim_customer', COUNT(*) FROM dim_customer
 UNION ALL SELECT '維度統計', 'dim_state', COUNT(*) FROM dim_state

@@ -17,7 +17,7 @@ SELECT
     sd.quarter       AS ship_quarter,
     sd.month         AS ship_month,
     sd.month_name    AS ship_month_name,
-    DATEDIFF(sd.date_actual, od.date_actual) AS shipping_days,
+    DATEDIFF(f.ship_date_id, f.order_date_id) AS shipping_days,
     f.ship_mode,
     f.customer_id,
     c.customer_name,

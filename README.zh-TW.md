@@ -142,7 +142,7 @@ erDiagram
 | 步驟 | 腳本 | 用途 |
 |---|---|---|
 | 7 | `06.create_view.sql` | `vw_sales_full` — 行級 flattened 視圖，供 SQL ad-hoc 分析與 Python EDA 使用 |
-| 8 | `index.sql` | `vw_sales_summary` — 按時間/客戶類別/地區/產品類別預先彙總的 KPI 查詢視圖；建立 `fact_sales` 索引 |
+| 8 | `09.index.sql` | `vw_sales_summary` — 按時間/客戶類別/地區/產品類別預先彙總的 KPI 查詢視圖；建立 `fact_sales` 索引 |
 | 9 | `07.check_fact_vw_distinct.sql` | 驗證事實表與視圖的唯一值計數 |
 
 ---
@@ -255,7 +255,7 @@ ORDER BY profit_margin_pct DESC;
 │ ├── 01–04 管道腳本 # 原始稽核預覽 → 清洗預覽 → 清洗後匯入 → 清洗後稽核
 ├── sql/
 │ ├── 01–08 管道腳本 # Staging → 維度表 → 事實表 → 視圖
-│ ├── index.sql # 索引與彙總視圖
+│ ├── 09.index.sql # 索引與彙總視圖
 │ └── analyst/ # 分析查詢
 ├── powerBI/
 │ ├── superstore.pbix # Power BI 儀表板

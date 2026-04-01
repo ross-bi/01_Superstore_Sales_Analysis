@@ -142,7 +142,7 @@ erDiagram
 | Step | Script | Purpose |
 |---|---|---|
 | 7 | `06.create_view.sql` | `vw_sales_full` — row-level flattened view for SQL ad-hoc analysis and Python EDA |
-| 8 | `index.sql` | `vw_sales_summary` — pre-aggregated view by time/segment/region/category for KPI queries; indexes on `fact_sales` |
+| 8 | `09.index.sql` | `vw_sales_summary` — pre-aggregated view by time/segment/region/category for KPI queries; indexes on `fact_sales` |
 | 9 | `07.check_fact_vw_distinct.sql` | Verify distinct value counts across fact table and view |
 
 ---
@@ -256,7 +256,7 @@ ORDER BY profit_margin_pct DESC;
 │   ├── 01–04 pipeline scripts                       # Raw audit previews → cleaned previews → cleaned for import → post-clean audit
 ├── sql/
 │   ├── 01–08 pipeline scripts                       # Staging → dimensions → fact → views
-│   ├── index.sql                                    # Indexes & summary view
+│   ├── 09.index.sql                                    # Indexes & summary view
 │   └── analyst/                                     # Analytical queries
 ├── powerBI/
 │   ├── superstore.pbix                              # Power BI dashboard
