@@ -1,7 +1,7 @@
-
 -- vw_sales_full：行級 flattened view，供 SQL ad-hoc 分析 / Python EDA 用
 -- Power BI 請使用 fact_sales + dim tables（Star Schema）
 -- 彙總分析請使用 vw_sales_summary
+-- JOIN 鏈：fact_sales → dim_state → dim_country → dim_region → dim_market
 
 CREATE OR REPLACE VIEW vw_sales_full AS
 SELECT
@@ -17,6 +17,7 @@ SELECT
     sd.quarter       AS ship_quarter,
     sd.month         AS ship_month,
     sd.month_name    AS ship_month_name,
+    DATEDIFF(sd.date_actual, od.date_actual) AS shipping_days,
     f.ship_mode,
     f.customer_id,
     c.customer_name,
@@ -25,10 +26,10 @@ SELECT
     s.state_name,
     s.country_id,
     co.country_name,
-    co.market_id,
+    co.region_id,
+    r.region_name,
+    r.market_id,
     m.market_name,
-    r.region_id,
-    r.region_name,           
     f.product_id,
     p.raw_product_id,        -- Power BI 用這個做真正單號
     p.product_name,
@@ -41,16 +42,15 @@ SELECT
     f.discount,
     f.profit,
     f.shipping_cost,
-    f.order_priority,
-    f.order_year              AS fact_year
+    f.order_priority
 FROM fact_sales       AS f
 LEFT JOIN dim_date    AS od  ON f.order_date_id = od.date_id
 LEFT JOIN dim_date    AS sd  ON f.ship_date_id  = sd.date_id
 LEFT JOIN dim_customer AS c  ON f.customer_id   = c.customer_id
 LEFT JOIN dim_state    AS s  ON f.state_id      = s.state_id
 LEFT JOIN dim_country  AS co ON s.country_id    = co.country_id
-LEFT JOIN dim_market   AS m  ON co.market_id    = m.market_id
-LEFT JOIN dim_region   AS r  ON m.region_id     = r.region_id     
+LEFT JOIN dim_region   AS r  ON co.region_id    = r.region_id
+LEFT JOIN dim_market   AS m  ON r.market_id     = m.market_id
 LEFT JOIN dim_product  AS p  ON f.product_id    = p.product_id
 LEFT JOIN dim_sub_category AS sc
        ON p.sub_category_id = sc.sub_category_id
