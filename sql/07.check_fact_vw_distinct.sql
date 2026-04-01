@@ -9,7 +9,6 @@ SELECT
     COUNT(DISTINCT state_id) AS uniq_state_id,
     COUNT(DISTINCT product_id) AS uniq_product_id,
     COUNT(DISTINCT order_priority) AS uniq_order_priority,
-    COUNT(DISTINCT order_year) AS uniq_year
 FROM fact_sales;
 
 SELECT
