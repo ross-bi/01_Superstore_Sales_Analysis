@@ -9,8 +9,9 @@ DROP TABLE IF EXISTS dim_category;
 -- 3. 刪地理層
 DROP TABLE IF EXISTS dim_state;
 DROP TABLE IF EXISTS dim_country;
-DROP TABLE IF EXISTS dim_market;
 DROP TABLE IF EXISTS dim_region;
+DROP TABLE IF EXISTS dim_market;
+
 
 -- 4. 其他維度
 DROP TABLE IF EXISTS dim_customer;

@@ -32,6 +32,11 @@ def export_unique_text_values(df: pd.DataFrame, base_dir: Path):
     timestamp = datetime.now().strftime("%Y%m%d")
     output_file = base_dir / "output" / "02_clean_preview" / f"superstore_unique_text_{timestamp}.csv"
 
+    # 確保目錄存在
+    output_dir = base_dir / "output" / "02_clean_preview"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_file = output_dir / f"superstore_unique_text_{timestamp}.csv"
+
     text_cols = df.select_dtypes(include="object").columns
     unique_values = {}
     for col in text_cols:
@@ -59,6 +64,11 @@ def export_unique_text_values(df: pd.DataFrame, base_dir: Path):
 def clean_superstore(base_dir: Path):
     input_file = base_dir / "data" / "superstore.csv"
     timestamp = datetime.now().strftime("%Y%m%d")
+
+    # 建立所有輸出目錄
+    (base_dir / "output" / "02_clean_preview").mkdir(parents=True, exist_ok=True)
+    (base_dir / "output" / "03_clean_data").mkdir(parents=True, exist_ok=True)
+    
     output_file = base_dir / "output" / "03_clean_data" / f"superstore_clean_{timestamp}.csv"
 
     # 讀取原始資料
@@ -94,6 +104,7 @@ def clean_superstore(base_dir: Path):
                 .astype(str)
                 .str.strip()
                 .str.replace(",", "", regex=False)
+                .str.replace(r"^\((.+)\)$", r"-\1", regex=True)   # ✅ (12.5) → -12.5
                 .str.replace(r"[^\d.\-]", "", regex=True)
             )
 
@@ -189,6 +200,7 @@ def clean_superstore(base_dir: Path):
             .str.replace(r"[\r\n]+", " ", regex=True) # 去掉換行符號
             .str.replace(r"\s+", " ", regex=True) # 合併多餘空格
             .apply(remove_accents) # 去重音符號
+            .apply(remove_accents)              # NaN 安全
         )
         changed = (before != df[col]).sum()
         if changed:

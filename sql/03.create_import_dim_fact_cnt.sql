@@ -186,11 +186,13 @@ JOIN dim_product p ON s.product_id = p.raw_product_id AND s.product_name = p.pro
 WHERE s.order_date BETWEEN '2011-01-01' AND '2020-12-31';
 
 -- ========================================
--- ✅ 最終驗證報告（新增產品衝突檢查）
+-- 驗證報告
 -- ========================================
 SELECT '總覽統計' AS 報告類型, 
        'staging_sales' AS 表名, COUNT(*) AS 筆數 FROM staging_sales
 UNION ALL SELECT '總覽統計', 'fact_sales', COUNT(*) FROM fact_sales
+UNION ALL SELECT '總覽統計', 'staging vs fact差異',  -- ✅ 新增差異行
+				(SELECT COUNT(*) FROM staging_sales) - (SELECT COUNT(*) FROM fact_sales)
 UNION ALL SELECT '維度統計', 'dim_customer', COUNT(*) FROM dim_customer
 UNION ALL SELECT '維度統計', 'dim_state', COUNT(*) FROM dim_state
 UNION ALL SELECT '維度統計', 'dim_product', COUNT(*) FROM dim_product
@@ -210,22 +212,69 @@ FROM (
 ) conflicts;
 
 -- 檢查匹配成功率
-SELECT 
-    CONCAT(ROUND(100.0 * COUNT(f.sales_id) / COUNT(s.order_id), 2), '%') AS '成功匹配率',
-    COUNT(f.sales_id) AS '事實表筆數',
-    COUNT(s.order_id) AS '原始筆數'
-FROM staging_sales s
-LEFT JOIN fact_sales f ON s.order_id = f.order_id;
+-- 先去重 order_id 再比較
+SELECT
+    CONCAT(ROUND(100.0 * matched / total, 2), '%') AS 成功匹配率,
+    matched   AS 已匹配order_id數,
+    total     AS staging原始order_id數,
+    total - matched AS 未匹配數
+FROM (
+    SELECT
+        COUNT(DISTINCT s.order_id)                                    AS total,
+        COUNT(DISTINCT CASE WHEN f.order_id IS NOT NULL 
+                            THEN s.order_id END)                      AS matched
+    FROM staging_sales s
+    LEFT JOIN fact_sales f ON s.order_id = f.order_id
+) t;
 
 -- 檢查重複訂單業務合理性
 SELECT 
     '重複訂單明細' as 檢查項目,
-    order_id, product_id, order_date_id,
+    order_id, product_id, order_date_id, ship_date_id, ship_mode, shipping_cost,
     COUNT(*) as 明細行數,
     SUM(sales) as 總銷售額,
     SUM(quantity) as 總數量,
     GROUP_CONCAT(DISTINCT ship_mode) as 出貨方式
 FROM fact_sales 
-GROUP BY order_id, product_id, order_date_id
+GROUP BY order_id, product_id, order_date_id, ship_date_id, ship_mode, shipping_cost
 HAVING COUNT(*) > 1
-LIMIT 10;
+LIMIT 100;
+
+
+-- ========================================
+-- 產品衝突全面驗證 (同一 raw_product_id 有多個 product_name)
+-- ========================================
+SELECT * FROM (
+    SELECT '方向1 同raw_product_id多product_name' AS 檢查項目,
+        COUNT(*) AS 問題筆數
+    FROM (
+        SELECT raw_product_id FROM dim_product
+        GROUP BY raw_product_id HAVING COUNT(DISTINCT product_name) > 1
+    ) t
+
+    UNION ALL
+
+    SELECT '方向2 同product_name多raw_product_id',
+        COUNT(*)
+    FROM (
+        SELECT product_name FROM dim_product
+        GROUP BY product_name HAVING COUNT(DISTINCT raw_product_id) > 1
+    ) t
+
+    UNION ALL
+
+    SELECT '方向3 dim_product完全重複行',
+        COUNT(*)
+    FROM (
+        SELECT raw_product_id, product_name FROM dim_product
+        GROUP BY raw_product_id, product_name HAVING COUNT(*) > 1
+    ) t
+
+    UNION ALL
+
+    SELECT '方向4 fact無法對應dim_product',
+        SUM(CASE WHEN p.product_id IS NULL THEN 1 ELSE 0 END)
+    FROM fact_sales f
+    LEFT JOIN dim_product p ON f.product_id = p.product_id
+) summary
+ORDER BY 檢查項目;

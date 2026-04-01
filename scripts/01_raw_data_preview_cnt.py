@@ -3,14 +3,6 @@ from pathlib import Path
 from datetime import datetime
 
 
-
-# 專案根目錄
-BASE_DIR = Path(__file__).resolve().parents[1]
-input_file = BASE_DIR / "data" / "superstore.csv"
-
-# 讀取原始資料
-df = pd.read_csv(input_file, encoding="utf-8")
-
 def data_audit(df, base_dir=Path.cwd()):
 
     # 基本 info
@@ -24,8 +16,15 @@ def data_audit(df, base_dir=Path.cwd()):
     # 建立 timestamp
     timestamp = datetime.now().strftime("%Y%m%d")
 
+    # 確保輸出目錄存在
+    output_dir = base_dir / "output" / "01_raw_preview"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     # 動態檔名
     output_file = base_dir / "output" / "01_raw_preview" / f"raw_superstore_report_{timestamp}.xlsx"
+
+    # sample 加保護
+    sample_size = min(100, len(df))
 
     # 輸出到 Excel
     with pd.ExcelWriter(output_file, engine="xlsxwriter") as writer:
@@ -49,5 +48,13 @@ def data_audit(df, base_dir=Path.cwd()):
     print(f"✅ 已輸出前100列至 {preview_csv}")
     print(f"✅ 已輸出隨機100列至 {sample_csv}")
 
+# 加上 __main__ 保護
+if __name__ == "__main__":
+    # 專案根目錄
+    BASE_DIR = Path(__file__).resolve().parents[1]
+    input_file = BASE_DIR / "data" / "superstore.csv"
+    # 讀取原始資料
+    df = pd.read_csv(input_file, encoding="utf-8")
+    print(f"✅ 成功讀取，共 {len(df)} 筆資料")
 
-data_audit(df, BASE_DIR)
+    data_audit(df, BASE_DIR)
