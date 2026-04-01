@@ -1,11 +1,51 @@
-country_id,country_name,market_id
-226,Afghanistan,2
-227,Afghanistan,6
-228,Afghanistan,13
-229,Afghanistan,18
-194,Albania,3
+country_id,country_name,region_id
+148,Afghanistan,18
+126,Albania,3
 1,Algeria,1
-73,Angola,1
-208,Argentina,7
-209,Argentina,8
-207,Argentina,9
+36,Angola,1
+136,Argentina,8
+137,Argentina,15
+135,Argentina,17
+194,Armenia,3
+2,Australia,2
+147,Austria,3
+61,Austria,7
+60,Austria,11
+62,Austria,12
+124,Azerbaijan,3
+208,Bahrain,3
+102,Bangladesh,18
+179,Barbados,10
+172,Belarus,3
+84,Belgium,7
+83,Belgium,11
+85,Belgium,12
+101,Benin,1
+183,Bolivia,8
+184,Bolivia,15
+182,Bolivia,17
+192,"Bosnia And Herzegovina",3
+20,Brazil,8
+21,Brazil,15
+19,Brazil,17
+157,Bulgaria,3
+155,Burundi,1
+133,Cambodia,6
+132,Cameroon,1
+6,Canada,5
+99,"Central African Republic",1
+205,Chad,1
+107,Chile,8
+108,Chile,15
+106,Chile,17
+37,China,13
+88,Colombia,8
+89,Colombia,15
+87,Colombia,17
+146,"Cote D'Ivoire",1
+159,Croatia,3
+24,Cuba,10
+100,"Czech Republic",3
+119,"Democratic Republic Of The Congo",1
+76,Denmark,4
+77,Denmark,9

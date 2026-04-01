@@ -2,7 +2,6 @@
 -- 1. 安全建立索引
 -- ========================================
 
-
 SET @index_exists = 0;
 SELECT COUNT(*) INTO @index_exists 
 FROM INFORMATION_SCHEMA.STATISTICS 
@@ -16,11 +15,11 @@ PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 SET @index_exists = 0;
 SELECT COUNT(*) INTO @index_exists 
 FROM INFORMATION_SCHEMA.STATISTICS 
-WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'fact_sales' AND INDEX_NAME = 'idx_fact_region';
+WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'fact_sales' AND INDEX_NAME = 'idx_fact_state_id';
 
 SET @sql = IF(@index_exists = 0, 
-    'CREATE INDEX idx_fact_region ON fact_sales(state_id)', 
-    'SELECT "idx_fact_region 已存在" AS status');
+    'CREATE INDEX idx_fact_state_id ON fact_sales(state_id)', 
+    'SELECT "idx_fact_state_id 已存在" AS status');
 PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 -- ========================================
@@ -32,27 +31,28 @@ SELECT
     dc.segment,
     ds.state_name,
     dr.region_name,
+    dm.market_name,
     dp.category_name, 
     dsc.sub_category_name,
-    SUM(fs.sales)                                        AS total_sales,
-    SUM(fs.quantity)                                     AS total_qty,
-    SUM(fs.profit)                                       AS total_profit,
-    COUNT(DISTINCT fs.order_id)                          AS order_count,
-    ROUND(SUM(total_profit) / NULLIF(SUM(total_sales), 0), 2) AS true_margin
+    SUM(fs.sales)                                              AS total_sales,
+    SUM(fs.quantity)                                           AS total_qty,
+    SUM(fs.profit)                                             AS total_profit,
+    COUNT(DISTINCT fs.order_id)                                AS order_count,
+    ROUND(SUM(fs.profit) / NULLIF(SUM(fs.sales), 0), 4)       AS true_margin
 FROM fact_sales fs
-JOIN dim_date        dd  ON fs.order_date_id  = dd.date_id
-JOIN dim_customer    dc  ON fs.customer_id    = dc.customer_id
-JOIN dim_state       ds  ON fs.state_id       = ds.state_id
-JOIN dim_country     dcn ON ds.country_id     = dcn.country_id
-JOIN dim_market      dm  ON dcn.market_id     = dm.market_id
-JOIN dim_region      dr  ON dm.region_id      = dr.region_id
-JOIN dim_product     p   ON fs.product_id     = p.product_id
+JOIN dim_date         dd  ON fs.order_date_id  = dd.date_id
+JOIN dim_customer     dc  ON fs.customer_id    = dc.customer_id
+JOIN dim_state        ds  ON fs.state_id       = ds.state_id
+JOIN dim_country      dcn ON ds.country_id     = dcn.country_id
+JOIN dim_region       dr  ON dcn.region_id     = dr.region_id    
+JOIN dim_market       dm  ON dr.market_id      = dm.market_id    
+JOIN dim_product      p   ON fs.product_id     = p.product_id
 JOIN dim_sub_category dsc ON p.sub_category_id = dsc.sub_category_id
-JOIN dim_category    dp  ON dsc.category_id   = dp.category_id
+JOIN dim_category     dp  ON dsc.category_id   = dp.category_id
 GROUP BY 
     dd.year, dd.quarter, dd.month, dd.month_name,
-    dc.segment,             
-    ds.state_name, dr.region_name,
+    dc.segment,
+    ds.state_name, dr.region_name, dm.market_name,
     dp.category_name, dsc.sub_category_name;
 
 -- ========================================
@@ -60,10 +60,10 @@ GROUP BY
 -- ========================================
 SELECT 
     category_name,
-    ROUND(SUM(total_sales), 0)   AS sales_total,
-    ROUND(SUM(total_profit), 0)  AS profit_total,
-    ROUND(AVG(profit_margin_pct), 1) AS avg_margin_pct,
-    SUM(order_count)             AS total_orders
+    ROUND(SUM(total_sales), 0)                                         AS sales_total,
+    ROUND(SUM(total_profit), 0)                                        AS profit_total,
+    ROUND(SUM(total_profit) / NULLIF(SUM(total_sales), 0) * 100, 1)   AS avg_margin_pct,
+    SUM(order_count)                                                   AS total_orders
 FROM vw_sales_summary 
 GROUP BY category_name 
 ORDER BY sales_total DESC 

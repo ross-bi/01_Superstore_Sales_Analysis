@@ -92,16 +92,16 @@ erDiagram
     dim_category { string category_id PK }
     dim_state { string state_id PK }
     dim_country { string country_id PK }
-    dim_market { string market_id PK }
     dim_region { string region_id PK }
+    dim_market { string market_id PK }
 
     dim_date ||--o{ fact_sales : "order_date_id"
     dim_date ||--o{ fact_sales : "ship_date_id"
     dim_state ||--o{ fact_sales : "ships to"
     dim_product ||--o{ fact_sales : "contains"
     dim_customer ||--o{ fact_sales : "purchases"
-    dim_region ||--o{ dim_market : "has"
-    dim_market ||--o{ dim_country : "has"
+    dim_market ||--o{ dim_region : "has"
+    dim_region ||--o{ dim_country : "has"
     dim_country ||--o{ dim_state : "has"
     dim_category ||--o{ dim_sub_category : "has"
     dim_sub_category ||--o{ dim_product : "has"
@@ -113,7 +113,7 @@ erDiagram
 |---|---|---|
 | `dim_date` | 10 年日曆（2011–2020） | 預先生成，含 year、quarter、month、day_of_week、is_weekend |
 | `dim_customer` | 唯一客戶 + 客戶類別 | 複合唯一鍵（customer_name, segment） |
-| `dim_region` → `dim_market` → `dim_country` → `dim_state` | 地理層級 | 正規化 4 層層級，使用外鍵關聯 |
+| `dim_market` → `dim_region` → `dim_country` → `dim_state` | 地理層級 | 正規化 4 層層級，使用外鍵關聯 |
 | `dim_category` → `dim_sub_category` → `dim_product` | 產品層級 | 透過複合鍵處理 product_id ↔ product_name 的 1:N 衝突 |
 | `fact_sales` | 交易級事實資料 | 代理鍵（sales_id）；保留重複的業務記錄 |
 
@@ -276,7 +276,7 @@ ORDER BY profit_margin_pct DESC;
 4. 在 Power BI Desktop 開啟 `superstore.pbix` 並連接至你的 MySQL 資料庫。  
    直接匯入以下資料表（Star Schema）：  
    - **事實表**：`fact_sales`  
-   - **維度表**：`dim_date` *（設定為 Date Table）*、`dim_customer`、`dim_product`、`dim_sub_category`、`dim_category`、`dim_state`、`dim_country`、`dim_market`、`dim_region`  
+   - **維度表**：`dim_date` *（設定為 Date Table）*、`dim_customer`、`dim_product`、`dim_sub_category`、`dim_category`、`dim_state`、`dim_country`、`dim_region`、`dim_market`  
    - **注意**：`vw_sales_full` 供 SQL/Python ad-hoc 分析使用；`vw_sales_summary` 供 MySQL KPI 查詢使用。兩者均不作為 Power BI 資料來源。
 
 ---

@@ -1,0 +1,51 @@
+year,quarter,month,month_name,segment,state_name,region_name,market_name,category_name,sub_category_name,total_sales,total_qty,total_profit,order_count,true_margin
+2011,1,1,January,Consumer,Afyonkarahisar,EMEA,EMEA,"Office Supplies",Fasteners,15.00,2,-3.84000,1,-0.2560
+2011,1,1,January,Consumer,"Al Jawf",EMEA,EMEA,"Office Supplies",Binders,14.00,1,2.97000,1,0.2121
+2011,1,1,January,Consumer,Amazonas,SOUTH,LATAM,"Office Supplies",Fasteners,38.00,3,6.12000,1,0.1611
+2011,1,1,January,Consumer,Arizona,WEST,US,Furniture,Bookcases,181.00,5,-320.59700,1,-1.7713
+2011,1,1,January,Consumer,Arizona,WEST,US,"Office Supplies",Binders,32.00,10,-23.71600,1,-0.7411
+2011,1,1,January,Consumer,Arizona,WEST,US,"Office Supplies",Envelopes,109.00,5,36.69300,1,0.3366
+2011,1,1,January,Consumer,Arizona,WEST,US,"Office Supplies",Paper,56.00,4,19.62240,1,0.3504
+2011,1,1,January,Consumer,Arkansas,SOUTH,US,Furniture,Chairs,1068.00,3,224.26740,1,0.2100
+2011,1,1,January,Consumer,Arkansas,SOUTH,US,Furniture,Furnishings,39.00,4,11.58000,1,0.2969
+2011,1,1,January,Consumer,Arkansas,SOUTH,US,"Office Supplies",Art,30.00,10,8.44850,1,0.2816
+2011,1,1,January,Consumer,Arkansas,SOUTH,US,"Office Supplies",Envelopes,23.00,3,10.96980,1,0.4769
+2011,1,1,January,Consumer,Arkansas,SOUTH,US,Technology,Phones,700.00,7,181.98180,1,0.2600
+2011,1,1,January,Consumer,Aswan,AFRICA,AFRICA,"Office Supplies",Storage,832.00,6,152.10000,1,0.1828
+2011,1,1,January,Consumer,Aswan,AFRICA,AFRICA,Technology,Copiers,1200.00,4,479.88000,1,0.3999
+2011,1,1,January,Consumer,Atsinanana,AFRICA,AFRICA,"Office Supplies",Labels,42.00,6,9.18000,1,0.2186
+2011,1,1,January,Consumer,Auckland,OCEANIA,APAC,Furniture,Chairs,228.00,4,-122.08800,1,-0.5355
+2011,1,1,January,Consumer,Auckland,OCEANIA,APAC,Technology,Accessories,69.00,2,3.42000,1,0.0496
+2011,1,1,January,Consumer,Auckland,OCEANIA,APAC,Technology,Copiers,912.00,4,-319.46400,1,-0.3503
+2011,1,1,January,Consumer,"Baja California",NORTH,LATAM,"Office Supplies",Envelopes,106.00,4,18.96000,1,0.1789
+2011,1,1,January,Consumer,Bali,"SOUTHEAST ASIA",APAC,"Office Supplies",Art,201.00,7,-49.36140,1,-0.2456
+2011,1,1,January,Consumer,Bangkok,"SOUTHEAST ASIA",APAC,"Office Supplies",Fasteners,12.00,3,-5.68260,1,-0.4736
+2011,1,1,January,Consumer,Belgorod,EMEA,EMEA,"Office Supplies",Labels,21.00,2,8.91000,1,0.4243
+2011,1,1,January,Consumer,Benguela,AFRICA,AFRICA,Furniture,Bookcases,2479.00,6,49.50000,1,0.0200
+2011,1,1,January,Consumer,Budapest,EMEA,EMEA,"Office Supplies",Storage,66.00,4,29.64000,1,0.4491
+2011,1,1,January,Consumer,Bursa,EMEA,EMEA,Furniture,Bookcases,157.00,2,-117.72000,1,-0.7498
+2011,1,1,January,Consumer,California,WEST,US,Furniture,Bookcases,334.00,3,3.92940,1,0.0118
+2011,1,1,January,Consumer,California,WEST,US,Furniture,Furnishings,19.00,2,5.79000,1,0.3047
+2011,1,1,January,Consumer,California,WEST,US,Furniture,Tables,333.00,3,-16.65000,1,-0.0500
+2011,1,1,January,Consumer,California,WEST,US,"Office Supplies",Art,56.00,9,18.59220,2,0.3320
+2011,1,1,January,Consumer,California,WEST,US,"Office Supplies",Paper,38.00,5,18.62400,2,0.4901
+2011,1,1,January,Consumer,California,WEST,US,"Office Supplies",Storage,1383.00,6,252.96050,2,0.1829
+2011,1,1,January,Consumer,Carabobo,SOUTH,LATAM,Technology,Copiers,425.00,3,-278.79024,1,-0.6560
+2011,1,1,January,Consumer,Champagne-Ardenne,CENTRAL,EU,Furniture,Bookcases,119.00,2,-143.07600,1,-1.2023
+2011,1,1,January,Consumer,Champagne-Ardenne,CENTRAL,EU,"Office Supplies",Binders,41.00,6,-10.89000,1,-0.2656
+2011,1,1,January,Consumer,Champagne-Ardenne,CENTRAL,EU,"Office Supplies",Envelopes,12.00,3,-8.01000,1,-0.6675
+2011,1,1,January,Consumer,Chongqing,"NORTH ASIA",APAC,"Office Supplies",Binders,164.00,6,18.00000,1,0.1098
+2011,1,1,January,Consumer,Constantine,AFRICA,AFRICA,"Office Supplies",Storage,408.00,2,106.14000,1,0.2601
+2011,1,1,January,Consumer,"Dar Es Salaam",AFRICA,AFRICA,"Office Supplies",Supplies,81.00,4,26.76000,1,0.3304
+2011,1,1,January,Consumer,Delaware,EAST,US,Furniture,Furnishings,10.00,2,3.08140,1,0.3081
+2011,1,1,January,Consumer,Duarte,CARIBBEAN,LATAM,"Office Supplies",Fasteners,35.00,5,7.26000,1,0.2074
+2011,1,1,January,Consumer,Eastern,AFRICA,AFRICA,"Office Supplies",Art,418.00,14,95.76000,1,0.2291
+2011,1,1,January,Consumer,Eastern,AFRICA,AFRICA,Technology,Accessories,41.00,1,6.12000,1,0.1493
+2011,1,1,January,Consumer,Emilia-Romagna,SOUTH,EU,Furniture,Chairs,142.00,4,-151.76400,1,-1.0688
+2011,1,1,January,Consumer,Emilia-Romagna,SOUTH,EU,"Office Supplies",Fasteners,41.00,4,2.88000,1,0.0702
+2011,1,1,January,Consumer,Emilia-Romagna,SOUTH,EU,"Office Supplies",Labels,54.00,5,7.50000,1,0.1389
+2011,1,1,January,Consumer,Emilia-Romagna,SOUTH,EU,"Office Supplies",Paper,55.00,3,2.70000,1,0.0491
+2011,1,1,January,Consumer,England,NORTH,EU,Furniture,Bookcases,854.00,7,290.43000,1,0.3401
+2011,1,1,January,Consumer,England,NORTH,EU,Furniture,Chairs,1384.00,3,13.77000,1,0.0099
+2011,1,1,January,Consumer,England,NORTH,EU,"Office Supplies",Art,103.00,2,19.50000,1,0.1893
+2011,1,1,January,Consumer,England,NORTH,EU,"Office Supplies",Paper,34.00,2,-6.15000,1,-0.1809

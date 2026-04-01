@@ -92,16 +92,16 @@ erDiagram
     dim_category { string category_id PK }
     dim_state { string state_id PK }
     dim_country { string country_id PK }
-    dim_market { string market_id PK }
     dim_region { string region_id PK }
+    dim_market { string market_id PK }
 
     dim_date ||--o{ fact_sales : "order_date_id"
     dim_date ||--o{ fact_sales : "ship_date_id"
     dim_state ||--o{ fact_sales : "ships to"
     dim_product ||--o{ fact_sales : "contains"
     dim_customer ||--o{ fact_sales : "purchases"
-    dim_region ||--o{ dim_market : "has"
-    dim_market ||--o{ dim_country : "has"
+    dim_market ||--o{ dim_region : "has"
+    dim_region ||--o{ dim_country : "has"
     dim_country ||--o{ dim_state : "has"
     dim_category ||--o{ dim_sub_category : "has"
     dim_sub_category ||--o{ dim_product : "has"
@@ -113,7 +113,7 @@ erDiagram
 |---|---|---|
 | `dim_date` | 10-year calendar (2011–2020) | Pre-generated with year, quarter, month, day_of_week, is_weekend |
 | `dim_customer` | Unique customer + segment | Composite unique key (customer_name, segment) |
-| `dim_region` → `dim_market` → `dim_country` → `dim_state` | Geographic hierarchy | Normalized 4-level hierarchy with foreign keys |
+| `dim_market` → `dim_region` → `dim_country` → `dim_state` | Geographic hierarchy | Normalized 4-level hierarchy with foreign keys |
 | `dim_category` → `dim_sub_category` → `dim_product` | Product hierarchy | Handles 1:N product_id ↔ product_name conflicts via composite key |
 | `fact_sales` | Transaction-level facts | Surrogate key (sales_id); preserves duplicate business records |
 
@@ -277,7 +277,7 @@ ORDER BY profit_margin_pct DESC;
 4. Open `superstore.pbix` in Power BI Desktop and connect to your MySQL instance.  
    Import the following tables directly (Star Schema):  
    - **Fact**: `fact_sales`  
-   - **Dimensions**: `dim_date` *(mark as Date Table)*, `dim_customer`, `dim_product`, `dim_sub_category`, `dim_category`, `dim_state`, `dim_country`, `dim_market`, `dim_region`  
+   - **Dimensions**: `dim_date` *(mark as Date Table)*, `dim_customer`, `dim_product`, `dim_sub_category`, `dim_category`, `dim_state`, `dim_country`, `dim_region`、`dim_market`   
    - **Note**: `vw_sales_full` is for SQL/Python ad-hoc analysis; `vw_sales_summary` is for MySQL KPI queries. Neither is used as the Power BI data source.
 
 ---

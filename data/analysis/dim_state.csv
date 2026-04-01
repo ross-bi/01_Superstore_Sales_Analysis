@@ -1,11 +1,51 @@
 state_id,state_name,country_id
-1691,'Ajman,267
-1945,'Amman,293
-1460,'Asir,126
-1010,Abia,87
-958,Abruzzi,105
-959,Abruzzi,106
-960,Abruzzi,107
-2523,"Abuja Capital Territory",87
-850,Aceh,65
-851,Aceh,66
+1298,'Ajman,178
+1466,'Amman,196
+1132,'Asir,78
+802,Abia,49
+753,Abruzzi,63
+751,Abruzzi,64
+752,Abruzzi,65
+1873,"Abuja Capital Territory",49
+666,Aceh,34
+1113,Acre,19
+1111,Acre,20
+1112,Acre,21
+877,"Ad Dawhah",156
+1480,Adamaoua,132
+1019,Adamawa,49
+885,Adana,59
+1485,Adiyaman,59
+338,Afyonkarahisar,59
+537,Aichi,31
+1593,Aksaray,59
+911,"Akwa Ibom",49
+1726,"Al Bahr Al Ahmar",50
+1193,"Al Basrah",8
+2022,"Al Buhayrah",50
+1101,"Al Fayyum",50
+1484,"Al Gharbiyah",50
+1292,"Al Hudaydah",177
+795,"Al Iskandariyah",50
+224,"Al Jawf",78
+312,"Al Madinah",78
+1822,"Al Marqab",175
+1727,"Al Minufiyah",50
+1010,"Al Minya",50
+1059,"Al Qadisiyah",8
+116,"Al Qahirah",50
+743,Alabama,28
+741,Alabama,29
+744,Alabama,30
+745,Alabama,38
+748,Alabama,39
+742,Alabama,40
+746,Alabama,41
+747,Alabama,44
+31,Alagoas,19
+29,Alagoas,20
+30,Alagoas,21
+1058,Alberta,6
+90,Alger,1
+849,Alibori,101
+1039,Almaty,153
