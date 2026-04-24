@@ -4,7 +4,7 @@
 - **專案名稱**：Superstore Sales Analysis  
 - **目的**：分析商品銷售、利潤率、促銷活動影響，協助採購與行銷決策  
 - **資料來源**：Kaggle Superstore Dataset (2011–2014)  
-- **工具**：Power BI、MySQL、VSCode
+- **工具**：Power BI、MySQL、Python
 - **方式**：ETL (Extract → Transform → Load)  
 
 
@@ -20,9 +20,9 @@
 
 ## 3. 方法論
 - **資料清理**：
--處理缺失值、標準化日期格式  (例如: DD/MM/YYYY, DD-MM-YYYY)
--統一重音符號（tilde）文字寫法 (同時出現Bolivar 和Bolívar的錯誤)
--發現 order_id + product_id 的primary key 同樣有重覆.
+- 處理缺失值、標準化日期格式  (例如: DD/MM/YYYY, DD-MM-YYYY)
+- 統一重音符號（tilde）文字寫法 (同時出現Bolivar 和Bolívar的錯誤)
+- 發現 order_id + product_id 的primary key 同樣有重覆.
 使用流水號唯一識別碼
 
 

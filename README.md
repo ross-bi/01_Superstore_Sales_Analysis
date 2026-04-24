@@ -213,13 +213,36 @@ ORDER BY profit_margin_pct DESC;
 
 ## Key Insights
 
+### KPI Summary (2014)
+
+| KPI | Actual | vs. Target |
+|---|---|---|
+| Total Sales | $4.30M | +14.78% above target |
+| Total Profit | $504K | +12.20% above target |
+| ROI | 13.28% | +32.28% above target (10%) |
+| Sales YoY Growth | +26.25% | +$894K vs. 2013 |
+| Avg Margin | 11.72% | Weighted average across all transactions |
+
 ### Category Performance
 
 | Category | Sales | Profit Margin | Assessment |
 |---|---|---|---|
-| Technology | $4.74M | 14% | Core growth engine — highest sales and margin |
-| Office Supplies | $3.79M | 14% | Stable profit source |
-| Furniture | $4.11M | 7% | High volume, low margin — pricing review needed |
+| Technology | $4.74M | 13.99% | Core growth engine — highest sales and margin |
+| Office Supplies | $3.79M | 13.69% | Stable profit source |
+| Furniture | $4.11M | 6.98% | High volume, significantly lower margin — cost review needed |
+
+- **Segment**: Consumer drives 51.48% of total sales; Home Office delivers the highest margin at 11.99%
+- **Top sub-categories by sales**: Phones ($552K), Copiers ($550K), Bookcases ($513K)
+- **Top sub-categories by margin**: Copiers (18.9%), Accessories (16.4%), Appliances (14.7%)
+- **Warning**: Tables margin at -12.55%, recording a net loss of -$30K
+
+### ABC Classification (by Sales Contribution)
+
+| Class | Sub-categories | Note |
+|---|---|---|
+| A (top 70%) | Phones, Copiers, Chairs, Bookcases, Storage, Appliances | Core revenue drivers |
+| B (next 20%) | Machines, Tables, Accessories, Binders | Tables: only item with 4 consecutive years of negative profit |
+| C (bottom 10%) | Furnishings, Art, Paper, Supplies, Envelopes, Fasteners, Labels | Low volume, monitor only |
 
 ### Discount Impact
 
@@ -229,16 +252,23 @@ ORDER BY profit_margin_pct DESC;
 | Low (0–10%) | 16.56% | Best balance of volume and profit |
 | Medium (11–30%) | 7.11% | Thin margin — use cautiously |
 | High (>30%) | **-40.65%** | Net loss territory — avoid |
-
 ---
 
 ## Business Recommendations
 
-1. **Cap discounts at 10%** — Discounts above 30% consistently generate net losses
-2. **Review Furniture cost structure** — 2nd-highest revenue but only 7% margin
-3. **Discontinue or reprice Tables** — Negative margin (-13%) across all 4 years
-4. **Double down on Technology** — Strongest combination of revenue and margin
-5. **Replace blanket discounts with category-specific pricing strategies**
+1. **Cap discounts at 10%** — Discounts above 30% generate an average margin of -40.65%. For top performers like Copiers, a 10% discount generates 75% more sales volume than 20% discount, proving deeper discounts are unnecessary.
+
+2. **Investigate Tables urgently** — Tables recorded negative profit (-12.55% margin, ROI -11.15%) for all 4 consecutive years. In 2014, sales increased 20% YoY but net losses doubled to 200% of the prior year. Suspending promotions above 20% discount and reviewing cost structure is recommended before any further markdowns.
+
+3. **Review Furniture cost structure** — Furniture is the 2nd-highest revenue category ($4.11M) but delivers only 6.98% margin vs. Technology's 13.99%. Within Furniture, Chairs (9.45%) and Storage (9.62%) are A-class by sales volume but significantly underperform on margin.
+
+4. **Double down on Technology and Copiers** — Technology combines the highest revenue share (37.53%) and margin (13.99%). Copiers specifically achieve ROI of 23%, well above the 10% target, making them the single highest-value sub-category.
+
+5. **Recalibrate Machines discount ceiling** — Machines ROI of 7.71% is below the 10% target, driven by excessive 50% discount transactions that generate negative profit. Reference 2012 performance (ROI 10.66%) to reset the discount ceiling and recover approximately 3% margin.
+
+6. **Monitor A-class underperformers** — Chairs (ROI 9.12%) fell below the 10% target in 2014, driven by an increase in 25–27% discount transactions. Limiting promotions above 20% for Chairs is recommended to prevent further margin erosion.
+
+7. **Replace blanket discounts with sub-category-specific pricing strategies** — Each A-class sub-category warrants its own discount cap derived from observed margin curves, rather than applying a uniform promotional rate across the portfolio.
 
 ---
 
