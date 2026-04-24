@@ -186,7 +186,7 @@ ORDER BY profit_margin_pct DESC;
 ### Page 1: Executive Summary
 <img src="screenshot/bi01.png" alt="Executive Summary Dashboard" width="100%">
 
-- **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), Avg Margin (5.00%)
+- **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), Avg Margin (11.72%)
 - **Sales Trend**: Monthly comparison (2013 vs 2014) highlighting seasonal patterns
 - **Top 10 Sub-Categories**: Sales, profit, margin table with conditional formatting (negative margins flagged)
 - **Market Distribution**: Pie chart — APAC (28%), EU (24%), US (17%), LATAM (16%), EMEA (7%)
