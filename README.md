@@ -282,12 +282,12 @@ ORDER BY profit_margin_pct DESC;
 │   ├── 01_raw_data_preview_cnt.py                   # Raw data audit
 │   ├── 02_clean_data_cnt.py                         # Data cleaning & validation
 │   └── 03_clean_audit_cnt.py                        # Post-clean verification
-├── output/ # Script-generated output files
-│   ├── 01–04 pipeline scripts                       # Raw audit previews → cleaned previews → cleaned for import → post-clean audit
+├── output/                                          # Generated files from pipeline scripts (audit reports, cleaned CSVs)
 ├── sql/
 │   ├── 01–08 pipeline scripts                       # Staging → dimensions → fact → views
-│   ├── 09.index.sql                                    # Indexes & summary view
-│   └── analyst/                                     # Analytical queries
+│   ├── 09.index.sql                                 # Indexes & summary view
+│   ├── analyst/                                     # Analytical queries
+│   └── utils/                                       # Utility scripts (drop_table.sql, test_powerbi.sql)
 ├── powerBI/
 │   ├── superstore.pbix                              # Power BI dashboard
 │   └── superstore.pdf                               # Dashboard export (3 pages)
@@ -302,12 +302,13 @@ ORDER BY profit_margin_pct DESC;
 **Prerequisites**: Python 3.8+, MySQL 8.0+, Power BI Desktop
 
 1. Download `superstore.csv` from [Kaggle](https://www.kaggle.com/datasets/laibaanwer/superstore-sales-dataset)
-2. Run `python scripts/02_clean_data_cnt.py`
-3. Execute SQL scripts in order (`01` → `08`) in MySQL
-4. Open `superstore.pbix` in Power BI Desktop and connect to your MySQL instance.  
+2. Run `python scripts/01_raw_data_preview_cnt.py` to generate the raw data audit report
+3. Run `python scripts/02_clean_data_cnt.py` to clean and validate the data
+4. Execute SQL scripts in order (`01` → `08`) in MySQL
+5. Open `superstore.pbix` in Power BI Desktop and connect to your MySQL instance.  
    Import the following tables directly (Star Schema):  
    - **Fact**: `fact_sales`  
-   - **Dimensions**: `dim_date` *(mark as Date Table)*, `dim_customer`, `dim_product`, `dim_sub_category`, `dim_category`, `dim_state`, `dim_country`, `dim_region`、`dim_market`   
+   - **Dimensions**: `dim_date` *(mark as Date Table)*, `dim_customer`, `dim_product`, `dim_sub_category`, `dim_category`, `dim_state`, `dim_country`, `dim_region`, `dim_market`   
    - **Note**: `vw_sales_full` is for SQL/Python ad-hoc analysis; `vw_sales_summary` is for MySQL KPI queries. Neither is used as the Power BI data source.
 
 ---
