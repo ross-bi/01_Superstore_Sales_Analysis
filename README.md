@@ -149,14 +149,29 @@ erDiagram
 
 ## 4. SQL Analysis
 
+### Analytical Query Files (`sql/analyst/`)
+
+| File | Source View | Description |
+|---|---|---|
+| `product_sales_by_month.sql` | `vw_sales_full` | Product-level sales, quantity, discount, profit by year-month |
+| `product_sales_by_year.sql` | `vw_sales_full` | Product-level sales, quantity, profit by year |
+| `product_profit_summary.sql` | `vw_sales_full` | Product-level sales, quantity, profit, shipping cost (all-period summary) |
+| `geo_sales_by_category.sql` | `vw_sales_full` | Market / country / state × category / sub-category sales and profit |
+| `category_profit_summary.sql` | `vw_sales_summary` | Category-level sales, profit, and weighted margin |
+| `discount_band_profitability.sql` | `vw_sales_full` | Discount band (None / Low / Medium / High) impact on sales and profit margin |
+
 ### Key Business Questions
 
 **Which categories generate the highest sales and profit?**
 ```sql
-SELECT category_name,
-       ROUND(SUM(total_sales), 0)  AS sales,
-       ROUND(SUM(total_profit), 0) AS profit,
-       ROUND(AVG(profit_margin_pct), 1) AS avg_margin_pct
+-- category_profit_summary.sql
+SELECT
+    category_name,
+    ROUND(SUM(total_sales), 0)  AS sales,
+    ROUND(SUM(total_profit), 0) AS profit,
+    ROUND(
+        SUM(total_profit) / NULLIF(SUM(total_sales), 0) * 100
+    , 1)                         AS margin_pct
 FROM vw_sales_summary
 GROUP BY category_name
 ORDER BY sales DESC;
@@ -164,6 +179,7 @@ ORDER BY sales DESC;
 
 **How do discounts affect profitability?**
 ```sql
+-- discount_band_profitability.sql
 SELECT
     CASE
         WHEN discount = 0        THEN 'No Discount'
@@ -252,6 +268,7 @@ ORDER BY profit_margin_pct DESC;
 | Low (0–10%) | 16.56% | Best balance of volume and profit |
 | Medium (11–30%) | 7.11% | Thin margin — use cautiously |
 | High (>30%) | **-40.65%** | Net loss territory — avoid |
+
 ---
 
 ## Business Recommendations
@@ -287,6 +304,12 @@ ORDER BY profit_margin_pct DESC;
 │   ├── 01–08 pipeline scripts                       # Staging → dimensions → fact → views
 │   ├── 09.index.sql                                 # Indexes & summary view
 │   ├── analyst/                                     # Analytical queries
+│   │   ├── product_sales_by_month.sql               # Product × year-month
+│   │   ├── product_sales_by_year.sql                # Product × year
+│   │   ├── product_profit_summary.sql               # Product all-period profit summary
+│   │   ├── geo_sales_by_category.sql                # Market / country / state × category
+│   │   ├── category_profit_summary.sql              # Category sales, profit & margin
+│   │   └── discount_band_profitability.sql          # Discount band impact on profit
 │   └── utils/                                       # Utility scripts (drop_table.sql, test_powerbi.sql)
 ├── powerBI/
 │   ├── superstore.pbix                              # Power BI dashboard
