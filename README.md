@@ -199,93 +199,81 @@ ORDER BY profit_margin_pct DESC;
 
 ## 5. Power BI Dashboard (3 Pages)
 
-### Page 1: Executive Summary
-<img src="screenshot/bi01.png" alt="Executive Summary Dashboard" width="100%">
+### Page 1: Sales Overview
+<img src="screenshot/bi01.png" alt="Sales Overview" width="100%">
 
-- **KPI Cards**: Sales ($4.30M), Profit ($504K), ROI (13.28%), Sales YoY (+26.25%), Avg Margin (11.72%)
-- **Sales Trend**: Monthly comparison (2013 vs 2014) highlighting seasonal patterns
-- **Top 10 Sub-Categories**: Sales, profit, margin table with conditional formatting (negative margins flagged)
-- **Market Distribution**: Pie chart — APAC (28%), EU (24%), US (17%), LATAM (16%), EMEA (7%)
-- **ABC Analysis**: Sub-category classification by sales and profit contribution
-- **Slicers**: Segment, Category
+- This page provides an executive summary of Superstore’s 2014 performance, combining KPI cards, monthly trend analysis, category contribution, and top-product ranking to show how revenue growth translated into profit. In 2014, total sales reached $4.30M, total profit was $504.17K, profit margin was 11.72%, and sales and profit increased by 26.25% and 23.41% year over year respectively.
 
-### Page 2: Product Performance
-<img src="screenshot/bi02.png" alt="Product Performance" width="100%">
+- Category-level analysis shows that Technology remained the strongest business pillar, generating $1.62M in sales, $234.93K in profit, and a 14.54% margin, while Office Supplies delivered $1.31M in sales with a solid 13.78% margin. Furniture generated $1.38M in sales but only $89.31K in profit with a 6.48% margin, and this weaker performance was largely driven by Tables, which still grew sales by 20.31% in 2014 but lost $30.55K with a -12.55% margin.
 
-- Category profitability comparison (Technology 14%, Office Supplies 14%, Furniture 7%)
-- Sub-category year-over-year sales and profit bar charts (2011–2014)
-- ABC Treemap for visual sub-category classification
-- Segment and category sales distribution pie charts
+- The product view reveals that growth was concentrated in a relatively small set of items rather than being evenly distributed across the catalog. Canon Imageclass 2200 Advanced Copier added $9.8K in sales YoY and generated about $15.68K profit in 2014, while Apple Smart Phone, Cordless and Sauder Classic Bookcase, Traditional also delivered strong incremental sales with positive profit contribution. However, some fast-growing products still underperformed financially, such as Novimex Executive Leather Armchair, Red and several other furniture items, showing that strong top-line growth did not always convert into healthy earnings.
 
-### Page 3: Promotion Impact
-<img src="screenshot/bi03.png" alt="Promotion Impact" width="100%">
 
-- **Scatter Plot**: Avg Discount % vs Avg Margin % by sub-category (bubble size = quantity)
-- **Discount Impact Charts**: Sales and profit distribution by discount level across years
-- **ROI by Sub-Category**: Ranking from Paper (highest) to Tables (negative ROI)
-- Profit trend year-over-year
+### Page 2: Market & Customer Performance
+<img src="screenshot/bi02.png" alt="Market & Customer Performance" width="100%">
+
+- This page evaluates performance by market and customer segment to identify where growth came from and which customer groups contributed the most business value. The dashboard combines a geographic sales view, market comparison, segment analysis, and customer ranking to support drill-down from global market to region, country, and customer level.
+
+- APAC remained the largest market in 2014 with $1.21M in sales, but EU delivered the strongest absolute sales growth among major markets, increasing by $280.54K year over year, while EMEA posted the fastest growth rate at 47.42% sales growth and 113.25% profit growth from a smaller base. US also remained a major contributor with $734.02K in 2014 sales, while LATAM added nearly $98.54K in incremental revenue, confirming that growth was geographically diversified rather than concentrated in one market alone.
+
+- Customer segment analysis shows that Consumer remained the largest segment at $2.14M in 2014 sales, but Home Office was the fastest-growing segment with 41.45% sales growth and 46.01% profit growth, making it the strongest emerging customer group in the portfolio. Corporate also grew steadily, but at a lower pace, with 21.46% sales growth and 10.14% profit growth, indicating weaker profit expansion than the other two segments. This page therefore highlights not only where the business is largest, but also where future growth momentum is strongest.
+
+### Page 3: Discount & Profitability
+<img src="screenshot/bi03.png" alt="Discount & Profitability" width="100%">
+
+- This page focuses on the trade-off between sales growth and margin quality by examining discount patterns, loss-making products, and profitability risk by category and sub-category. The dashboard is designed to show that sales growth alone can be misleading when heavy discounting erodes profit and creates structurally weak product performance.
+
+- The product-level discount analysis shows that many of the worst-performing items are concentrated in high-discount transactions, especially in Furniture Tables, selected Chairs, Binders, Appliances, Machines, and Copiers. Examples include Hon Conference Table, Rectangular with an 80% average discount and a -184.95% margin, Barricks Conference Table, Rectangular with a 70% discount and a -126.68% margin, and Cubify Cubex 3D Printer Triple Head Print with $8.0K sales but a -$3.84K profit at a 50% average discount. These cases show that discounting did not simply reduce profitability; in many cases it completely reversed it.
+
+- The growth-risk view reinforces the same finding. Several products achieved sharp sales increases in 2014 but still remained loss-making, including Breville Microwave, Silver, which grew sales by 293.63% but recorded a 2014 loss of about $1.78K, and Bevis Wood Table, With Bottom Storage, which grew sales by 600.13% but still posted a 2014 loss of about $1.64K. At the structural level, Furniture Tables stand out as the clearest category warning sign: sales increased from $202.36K in 2013 to $243.46K in 2014, but the sub-category still generated a negative margin of -12.55% and a profit decline severe enough to make it the main drag on overall Furniture profitability.
+
+
 
 ---
 
 ## Key Insights
 
-### KPI Summary (2014)
+- Superstore delivered strong overall growth in 2014, reaching $4.30M in sales and $504.17K in profit, with sales up 26.25% and profit up 23.41% year over year.
 
-| KPI | Actual | vs. Target |
-|---|---|---|
-| Total Sales | $4.30M | +14.78% above target |
-| Total Profit | $504K | +12.20% above target |
-| ROI | 13.28% | +32.28% above target (10%) |
-| Sales YoY Growth | +26.25% | +$894K vs. 2013 |
-| Avg Margin | 11.72% | Weighted average across all transactions |
+- Technology was the strongest category in both scale and efficiency, producing $1.62M in sales, $234.93K in profit, and a 14.54% profit margin in 2014.
 
-### Category Performance
+- Furniture was the weakest major category in margin terms, generating only a 6.48% profit margin despite $1.38M in sales, and this underperformance was driven primarily by the Tables sub-category.
 
-| Category | Sales | Profit Margin | Assessment |
-|---|---|---|---|
-| Technology | $4.74M | 13.99% | Core growth engine — highest sales and margin |
-| Office Supplies | $3.79M | 13.69% | Stable profit source |
-| Furniture | $4.11M | 6.98% | High volume, significantly lower margin — cost review needed |
+- Furniture Tables grew sales by 20.31% in 2014, but still lost $30.55K and posted a -12.55% margin, showing that sales growth in this sub-category was unprofitable.
 
-- **Segment**: Consumer drives 51.48% of total sales; Home Office delivers the highest margin at 11.99%
-- **Top sub-categories by sales**: Phones ($552K), Copiers ($550K), Bookcases ($513K)
-- **Top sub-categories by margin**: Copiers (18.9%), Accessories (16.4%), Appliances (14.7%)
-- **Warning**: Tables margin at -12.55%, recording a net loss of -$30K
+- Product growth was concentrated in a relatively small group of items, led by Canon Imageclass 2200 Advanced Copier, which added $9.8K in sales YoY and generated $15.68K profit in 2014.
 
-### ABC Classification (by Sales Contribution)
+- Several fast-growing products delivered strong revenue but poor earnings quality, including Novimex Executive Leather Armchair, Red, which added $7.07K in sales YoY but still generated a negative 2014 profit.
 
-| Class | Sub-categories | Note |
-|---|---|---|
-| A (top 70%) | Phones, Copiers, Chairs, Bookcases, Storage, Appliances | Core revenue drivers |
-| B (next 20%) | Machines, Tables, Accessories, Binders | Tables: only item with 4 consecutive years of negative profit |
-| C (bottom 10%) | Furnishings, Art, Paper, Supplies, Envelopes, Fasteners, Labels | Low volume, monitor only |
+- APAC was the largest market in 2014 at $1.21M in sales, while EU delivered the largest absolute sales increase at $280.54K, and EMEA achieved the fastest growth rate at 47.42% sales growth and 113.25% profit growth.
 
-### Discount Impact
+- Consumer remained the largest customer segment at $2.14M in 2014 sales, but Home Office was the most dynamic segment with 41.45% sales growth and 46.01% profit growth.
 
-| Discount Band | Profit Margin | Assessment |
-|---|---|---|
-| No Discount | 25.32% | Healthiest — strong demand without incentives |
-| Low (0–10%) | 16.56% | Best balance of volume and profit |
-| Medium (11–30%) | 7.11% | Thin margin — use cautiously |
-| High (>30%) | **-40.65%** | Net loss territory — avoid |
+- High discounting was strongly associated with loss-making products, especially in Furniture Tables, Appliances, Binders, and Machines, where multiple products showed negative margins even when sales volume was meaningful.
+
+- Some products combined high sales growth with worsening profitability, proving that revenue growth alone is not a reliable measure of business health when discount pressure is too aggressive.
 
 ---
 
 ## Business Recommendations
+- Prioritize Technology and selected Office Supplies sub-categories for growth investment, because they combine strong revenue scale with healthier profit margins than Furniture.
 
-1. **Cap discounts at 10%** — Discounts above 30% generate an average margin of -40.65%. For top performers like Copiers, a 10% discount generates 75% more sales volume than 20% discount, proving deeper discounts are unnecessary.
+- Review the Furniture category at sub-category level rather than treating it as a single business unit, since Tables are structurally unprofitable while Bookcases and Furnishings remain profitable.
 
-2. **Investigate Tables urgently** — Tables recorded negative profit (-12.55% margin, ROI -11.15%) for all 4 consecutive years. In 2014, sales increased 20% YoY but net losses doubled to 200% of the prior year. Suspending promotions above 20% discount and reviewing cost structure is recommended before any further markdowns.
+- Tighten discount governance immediately for high-risk sub-categories such as Tables, Binders, Appliances, and Machines, where repeated high-discount transactions are producing deeply negative margins.
 
-3. **Review Furniture cost structure** — Furniture is the 2nd-highest revenue category ($4.11M) but delivers only 6.98% margin vs. Technology's 13.99%. Within Furniture, Chairs (9.45%) and Storage (9.62%) are A-class by sales volume but significantly underperform on margin.
+- Replace broad discounting with product-level pricing rules, using margin thresholds and discount caps to prevent sales growth from coming at the expense of profit destruction.
 
-4. **Double down on Technology and Copiers** — Technology combines the highest revenue share (37.53%) and margin (13.99%). Copiers specifically achieve ROI of 23%, well above the 10% target, making them the single highest-value sub-category.
+- Flag high-growth but loss-making products for commercial review, because these products create misleading signals by improving sales performance while weakening profitability.
 
-5. **Recalibrate Machines discount ceiling** — Machines ROI of 7.71% is below the 10% target, driven by excessive 50% discount transactions that generate negative profit. Reference 2012 performance (ROI 10.66%) to reset the discount ceiling and recover approximately 3% margin.
+- Expand focus on markets with strong momentum, especially EU and EMEA, while maintaining APAC as the largest revenue base and monitoring whether growth in smaller markets remains profitable at scale.
 
-6. **Monitor A-class underperformers** — Chairs (ROI 9.12%) fell below the 10% target in 2014, driven by an increase in 25–27% discount transactions. Limiting promotions above 20% for Chairs is recommended to prevent further margin erosion.
+- Increase commercial attention on the Home Office segment, since it delivered the strongest combined sales and profit growth among customer groups in 2014.
 
-7. **Replace blanket discounts with sub-category-specific pricing strategies** — Each A-class sub-category warrants its own discount cap derived from observed margin curves, rather than applying a uniform promotional rate across the portfolio.
+- Use sub-category and product profitability tracking as an ongoing management control, so future performance reviews emphasize margin quality, not just total sales or YoY growth.
+
+
+
 
 ---
 

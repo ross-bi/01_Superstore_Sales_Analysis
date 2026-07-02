@@ -198,93 +198,84 @@ ORDER BY profit_margin_pct DESC;
 
 ## 5. Power BI 儀表板（3 頁）
 
-### 第 1 頁：Executive Summary
-<img src="screenshot/bi01.png" alt="Executive Summary Dashboard" width="100%">
+### 第 1 頁：Sales Overview
+<img src="screenshot/bi01.png" alt="Sales Overview" width="100%">
 
-- **KPI Cards**：Sales ($4.30M)、Profit ($504K)、ROI (13.28%)、Sales YoY (+26.25%)、Avg Margin (11.72%)
-- **Sales Trend**：2013 vs 2014 月度比較，觀察季節性模式
-- **Top 10 Sub-Categories**：銷售、利潤、margin 排名表，負 margin 以條件格式標示
-- **Market Distribution**：圓餅圖 — APAC (28%)、EU (24%)、US (17%)、LATAM (16%)、EMEA (7%)
-- **ABC Analysis**：依銷售與利潤貢獻做 sub-category 分級
-- **Slicers**：Segment、Category
+- 此頁作為管理層總覽頁，整合 KPI 卡、月度趨勢、類別貢獻與熱銷產品排名，用來快速回答「2014 年整體業績表現如何、成長來自哪裡、獲利品質是否同步改善」等核心問題 。2014 年總銷售額為 $4.30M、總利潤為 $504.17K、整體利潤率為 11.72%，銷售額與利潤年增率分別為 26.25% 與 23.41%，顯示公司在規模與獲利上皆有明顯成長 。
 
-### 第 2 頁：Product Performance
-<img src="screenshot/bi02.png" alt="Product Performance" width="100%">
+- 從類別表現來看，Technology 是最強的核心品類，2014 年銷售額達 $1.62M、利潤達 $234.93K，利潤率為 14.54%，在規模與獲利效率上都領先其他大類 。Office Supplies 也表現穩健，2014 年銷售額為 $1.31M，利潤率為 13.78%；相較之下，Furniture 雖然銷售額達 $1.38M，但利潤僅 $89.31K，利潤率只有 6.48%，明顯落後 。進一步拆解可發現，Furniture 的主要問題來自 Tables 子類別，雖然 2014 年銷售仍成長 20.31%，但全年虧損 $30.55K，利潤率為 -12.55%，屬於典型的「有成長但沒賺錢」子類別 。
 
-- 類別獲利能力比較（Technology 14%、Office Supplies 14%、Furniture 7%）
-- Sub-category 2011–2014 年度 sales 與 profit 長條圖
-- ABC Treemap 視覺化 sub-category 分級
-- Segment 與 Category 的銷售分布圓餅圖
+- 產品層級顯示，2014 年的成長並不是平均分布在所有商品上，而是高度集中於少數明星產品。Canon Imageclass 2200 Advanced Copier 在 2014 年較 2013 年增加 $9.8K 銷售，並貢獻約 $15.68K 利潤，是兼具成長與獲利的代表產品 。Apple Smart Phone, Cordless、Sauder Classic Bookcase, Traditional 與 Hoover Stove, Red 也都帶來顯著增量，顯示部分高價值產品對年度成長貢獻非常集中 。但值得注意的是，並非所有高成長產品都健康，例如 Novimex Executive Leather Armchair, Red 雖然銷售年增 $7.07K，但 2014 年仍為負利潤，說明單看 sales growth 可能會高估實際商業價值.
 
-### 第 3 頁：Promotion Impact
-<img src="screenshot/bi03.png" alt="Promotion Impact" width="100%">
 
-- **Scatter Plot**：Sub-category 的平均折扣率 vs 平均 margin（泡泡大小 = quantity）
-- **Discount Impact Charts**：不同折扣層級在各年份的 sales 與 profit 分布
-- **ROI by Sub-Category**：由 Paper（最高）到 Tables（負 ROI）的排名
-- 年度 profit 趨勢
+
+
+### 第 2 頁：Market & Customer Performance
+<img src="screenshot/bi02.png" alt="Market & Customer Performance" width="100%">
+
+- 此頁聚焦市場與客群表現，透過地理銷售分布、Market 比較、Segment 分析與客戶排名，幫助管理層理解「業績來自哪些市場、哪些客群貢獻最大、哪些區域具備更高成長動能」 。這一頁的設計價值在於，它不只呈現大盤規模，也能支援由市場往下 drill-down 到國家、區域與客戶層級的分析 。
+
+- 以 Market 來看，APAC 是 2014 年最大市場，銷售額達 $1.21M，維持公司最重要的收入來源地位 。但若看增量，EU 在 2014 年比 2013 年增加 $280.54K 銷售，是主要市場中絕對成長額最高者；而 EMEA 則是成長率最快的市場，銷售年增率為 47.42%，利潤年增率更高達 113.25%，雖然基期較小，但展現出非常強的擴張潛力 。US 仍是重要成熟市場，2014 年銷售額達 $734.02K；LATAM 則額外增加近 $98.54K 銷售，說明公司的成長來源相對分散，而非只依賴單一市場 。
+
+- 客群層級方面，Consumer 仍是最大 Segment，2014 年銷售額為 $2.14M，維持業績主體 。但若看成長速度，Home Office 才是最具潛力的客群，2014 年銷售年增率為 41.45%，利潤年增率為 46.01%，成長表現明顯優於 Consumer 與 Corporate 。Corporate 雖然也有穩定增長，2014 年銷售年增率為 21.46%，但利潤年增僅 10.14%，反映該客群的獲利擴張速度相對保守 。整體而言，此頁能幫助管理層區分「目前最大市場」與「最值得投入的成長市場／客群」之間的差異 。
+
+
+### 第 3 頁：Discount & Profitability
+<img src="screenshot/bi03.png" alt="Discount & Profitability" width="100%">
+
+- 此頁聚焦折扣策略與獲利風險，目的是回答「折扣是否真的帶來健康成長、哪些產品在高折扣下變成虧損、哪些類別是利潤風險來源」 。這一頁也是整份 dashboard 最具商業洞察價值的部分，因為它把表面上的 sales growth 與實際的 margin quality 分開看待 。
+
+- 高折扣產品分析顯示，多數嚴重虧損產品集中在 Furniture Tables，也延伸至部分 Chairs、Binders、Appliances、Machines 與 Copiers。像是 Hon Conference Table, Rectangular 的平均折扣為 80%，利潤率為 -184.95%；Barricks Conference Table, Rectangular 平均折扣 70%，利潤率為 -126.68%；Cubify Cubex 3D Printer Triple Head Print 雖然有 $8.0K 銷售，但在 50% 平均折扣下仍虧損約 $3.84K 。這些例子顯示高折扣不只是壓低利潤，而是可能直接把訂單推向嚴重虧損 。
+
+- 進一步從成長與虧損交叉分析來看，部分產品在 2014 年雖然銷售成長非常快，但依然持續虧損。Breville Microwave, Silver 的銷售年增率達 293.63%，但 2014 年虧損約 $1.78K；Bevis Wood Table, With Bottom Storage 的銷售年增率達 600.13%，但 2014 年仍虧損約 $1.64K 。這代表某些業績成長其實是透過折價換來，並沒有帶動實際的商業價值 。從類別結構看，Furniture Tables 最值得被列為獲利風險警示，因其 2014 年銷售由 $202.36K 增至 $243.46K，但仍產生 -$30.55K 利潤與 -12.55% 利潤率，是拖累整體 Furniture 表現的關鍵原因 。
+
+
+
 
 ---
 
 ## 關鍵洞察
+- 2014 年整體表現強勁，總銷售額達 $4.30M、總利潤達 $504.17K，銷售與利潤年增率分別為 26.25% 與 23.41%，顯示業務規模與獲利同步擴大 。
 
-### KPI 摘要（2014）
+- Technology 是表現最強的核心類別，2014 年銷售額為 $1.62M、利潤為 $234.93K、利潤率為 14.54%，在規模與效益兩方面都明顯領先 。
 
-| KPI | 實際值 | 相對目標 |
-|---|---|---|
-| Total Sales | $4.30M | 高於目標 14.78% |
-| Total Profit | $504K | 高於目標 12.20% |
-| ROI | 13.28% | 高於目標（10%）32.28% |
-| Sales YoY Growth | +26.25% | 較 2013 增加 $894K |
-| Avg Margin | 11.72% | 所有交易的加權平均 |
+- Furniture 是三大類中利潤率最低的類別，2014 年雖有 $1.38M 銷售，但利潤率僅 6.48%，反映其成長品質不如其他類別 。
 
-### 類別表現
+- Furniture 的主要問題集中在 Tables 子類別，該子類別 2014 年銷售年增 20.31%，卻仍虧損 $30.55K，利潤率為 -12.55%，屬於結構性虧損項目 。
 
-| Category | Sales | Profit Margin | 評估 |
-|---|---|---|---|
-| Technology | $4.74M | 13.99% | 核心成長引擎，銷售與利潤率皆最高 |
-| Office Supplies | $3.79M | 13.69% | 穩定的利潤來源 |
-| Furniture | $4.11M | 6.98% | 高營收但利潤率明顯偏低，需檢討成本 |
+- 產品成長高度集中於少數關鍵商品，其中 Canon Imageclass 2200 Advanced Copier 在 2014 年增加 $9.8K 銷售，並貢獻約 $15.68K 利潤，是最具代表性的成長引擎之一 。
 
-- **Segment**：Consumer 貢獻 51.48% 總銷售；Home Office 擁有最高 margin（11.99%）
-- **銷售額最高的 sub-categories**：Phones ($552K)、Copiers ($550K)、Bookcases ($513K)
-- **利潤率最高的 sub-categories**：Copiers (18.9%)、Accessories (16.4%)、Appliances (14.7%)
-- **警訊**：Tables 的 margin 為 -12.55%，淨虧損 -$30K
+- 並非所有高成長產品都具備高商業價值，例如 Novimex Executive Leather Armchair, Red 雖然銷售大幅增加，但 2014 年仍為負利潤，反映成長不一定等於健康 。
 
-### ABC 分類（依銷售貢獻）
+- APAC 是 2014 年最大市場，銷售額達 $1.21M；EU 則帶來最高的絕對成長額，新增 $280.54K 銷售，而 EMEA 則以 47.42% 銷售年增率與 113.25% 利潤年增率成為最快速成長市場 。
 
-| 類別 | Sub-categories | 說明 |
-|---|---|---|
-| A（前 70%） | Phones、Copiers、Chairs、Bookcases、Storage、Appliances | 核心營收來源 |
-| B（接續 20%） | Machines、Tables、Accessories、Binders | Tables 是唯一連續 4 年虧損的項目 |
-| C（最後 10%） | Furnishings、Art、Paper、Supplies、Envelopes、Fasteners、Labels | 體量較小，持續監控即可 |
+- Consumer 是最大客群，2014 年銷售額達 $2.14M；但 Home Office 才是最具成長性的 Segment，銷售與利潤年增率分別達 41.45% 與 46.01% 。
 
-### 折扣影響
+- 高折扣與虧損高度相關，尤其集中在 Furniture Tables、Appliances、Binders 與 Machines，多個產品在高折扣條件下呈現明顯負利潤率 。
 
-| Discount Band | Profit Margin | 評估 |
-|---|---|---|
-| No Discount | 25.32% | 最健康，顯示需求強且無需額外促銷 |
-| Low (0–10%) | 16.56% | 銷量與利潤的最佳平衡 |
-| Medium (11–30%) | 7.11% | 利潤偏薄，需審慎使用 |
-| High (>30%) | **-40.65%** | 落入淨虧損區間，應避免 |
+- 部分產品同時呈現「高成長、低獲利甚至虧損」特徵，代表單看營收或 YoY 成長率，可能會誤判業務健康度 。
 
 ---
 
 ## 商業建議
 
-1. **將折扣上限控制在 10%** — 超過 30% 的折扣平均 margin 為 -40.65%。對於 Copiers 這類高表現品項，10% 折扣帶來的銷量比 20% 折扣高出 75%，顯示更深折扣並無必要。
+- 優先投資 Technology 與部分高效益的 Office Supplies 子類別，因為它們兼具營收規模與較健康的獲利率，比 Furniture 更適合作為未來成長主軸 。
 
-2. **優先檢討 Tables** — Tables 連續 4 年維持負利潤（margin -12.55%、ROI -11.15%）。2014 年雖然 sales 年增 20%，但淨虧損卻擴大至前一年的 200%。建議暫停 20% 以上促銷，並先檢討成本結構。
+- 對 Furniture 採取子類別層級管理，而非只看整體類別表現，因為 Bookcases 與 Furnishings 仍有利潤，但 Tables 已呈現結構性虧損 。
 
-3. **重新檢視 Furniture 成本結構** — Furniture 是第二高營收類別（$4.11M），但 margin 僅 6.98%，遠低於 Technology 的 13.99%。其中 Chairs（9.45%）與 Storage（9.62%）雖屬 A 類銷售主力，margin 表現仍偏弱。
+- 立即收緊高風險子類別的折扣治理，尤其是 Tables、Binders、Appliances 與 Machines，因為這些類別中多次出現高折扣導致深度虧損的交易模式 。
 
-4. **加碼 Technology 與 Copiers** — Technology 同時擁有最高營收占比（37.53%）與最高 margin（13.99%）。其中 Copiers 的 ROI 達 23%，明顯高於 10% 目標，是最具價值的 sub-category。
+- 建立產品層級的折扣上限與毛利門檻，避免用價格換取表面上的營收成長，卻犧牲實際利潤 。
 
-5. **重新設定 Machines 的折扣上限** — Machines 的 ROI 為 7.71%，低於 10% 目標，主因是 50% 折扣交易過多，導致負利潤。可參考 2012 年表現（ROI 10.66%）回推較合理的折扣上限，預估可恢復約 3% margin。
+- 將高成長但持續虧損的產品列入商業檢討清單，因為這些商品會製造「營收看起來漂亮、實際獲利惡化」的假象 。
 
-6. **關注 A 類中表現偏弱的品項** — Chairs 在 2014 年 ROI 為 9.12%，低於 10% 目標，主要受到 25–27% 折扣交易增加影響。建議限制 Chairs 超過 20% 的促銷，以防利潤持續惡化。
+- 在維持 APAC 作為主要收入基地的同時，應加強關注 EU 與 EMEA 等高成長市場，評估是否值得投入更多商業資源擴張 。
 
-7. **以 sub-category 為單位制定折扣策略，取代一刀切的折扣政策** — 每個 A 類 sub-category 都應根據其 margin curve 設定個別折扣上限，而非套用相同促銷比例。
+- 提高對 Home Office 客群的經營優先順序，因其在 2014 年展現出最強的銷售與利潤成長動能 。
+
+- 將未來績效管理從單純追求銷售額，轉向同時追蹤子類別利潤率、折扣風險與產品層級獲利品質，以提升決策準確度 。
+
+
 
 ---
 
