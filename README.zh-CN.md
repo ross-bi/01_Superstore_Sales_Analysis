@@ -325,7 +325,7 @@ ORDER BY profit_margin_pct DESC;
 
 ## 作者
 
-Ross Tang | [GitHub](https://github.com/ross-bi)
+Chung Man Tang | [GitHub](https://github.com/ross-bi)
 
 ## 许可证
 
